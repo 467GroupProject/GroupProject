@@ -1,25 +1,29 @@
 <template>
     <div class="products">
-        <secion v-if="errored">
-            <p>Sorry, something went wrong.</p>
-        </secion>
+        <section v-if="errored">
+            <p>Sorry, something went wrong.</p>>
+        </section>
         <section v-else>
-            <!--
-            <div v-for="(product, index) in products" v-bind:key="product">
-                <img v-if="product.pictureURL" :src="product.pictureURL">
-                <span class="lighten">
-                    <span></span> ${{ product.price }} {{ product.weight }}lb quantity {{ quantity[index].quantity }}
-                </span>
-            </div> 
-            -->
-            <v-row>
-                <v-col v-for="n in products" :key="n" cols="3">
-                    <v-card>
-                        <img :src="n.pictureURL" />
-                        {{ n.description }}
-                    </v-card>
-                </v-col>
-            </v-row>
+            <v-container fuild>
+                <v-row>
+                    <v-col v-for="(n,i) in products" :key="n" cols="4"> 
+                        <v-card class="mx-auto text-center" height="275">
+                            <v-card-title>{{ n.description }}</v-card-title>
+                            <v-card-subtitle>${{ n.price }}</v-card-subtitle>
+                            <v-img height="100" :src="n.pictureURL" />
+                            <section v-if="quantity[i].quantity == 0">
+                                <v-badge content="Out of Stock" bottom="true"></v-badge>
+                            </section>
+                            <section v-else>
+                                <v-card-text>{{ quantity[i].quantity }}</v-card-text>
+                                <v-card-actions>
+                                    <v-btn variant="outlined">Add to Cart</v-btn>
+                                </v-card-actions>
+                            </section>
+                        </v-card> 
+                    </v-col>
+                </v-row>
+            </v-container>
         </section>
     </div>
 </template>
@@ -29,7 +33,9 @@ import authenticationService
  from '@/services/authenticationService';
  export default{
     data: () => ({
+        // array to hold all products
         products: [],
+        // array to hold all inventory
         quantity: [],
         errored: false,
         width: 150
