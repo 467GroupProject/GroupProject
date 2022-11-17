@@ -3,31 +3,39 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-
+  <v-app id="vapp">
+    <v-app-bar app extended>
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/products">Products</RouterLink>
+        <RouterLink to="/">
+          <v-btn class="mx-4 white--text" 
+          elevation="2" x-large rounded 
+          color="black darken-1">
+          Home</v-btn>
+          </RouterLink>
+        <RouterLink to="/about">
+          <v-btn class="mx-4 white--text" 
+          elevation="2" x-large rounded 
+          color="black darken-1">
+          About</v-btn>
+          </RouterLink>
+        <RouterLink to="/products">
+          <v-btn class="mx-4 white--text" 
+          elevation="2" x-large rounded 
+          color="black darken-1">
+          Products</v-btn>
+        </RouterLink>
       </nav>
-    </div>
-  </header>
-
-  <RouterView />
+       
+    </v-app-bar>
+    <v-main>
+      <v-container>
+        <RouterView />
+      </v-container>   
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
 nav {
   width: 100%;
   font-size: 12px;
@@ -54,25 +62,9 @@ nav a:first-of-type {
 }
 
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
   nav {
     text-align: left;
-    margin-left: -1rem;
+    margin-left: 2rem;
     font-size: 1rem;
 
     padding: 1rem 0;
