@@ -18,8 +18,8 @@ model Order_Product {
   order_id   Int
   product_id Int
   quantity   Int
-  Orders     Orders    @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Order_Product_ibfk_1")
-  Inventory  Inventory @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Order_Product_ibfk_2")
+  Orders     Orders    @relation(fields: [order_id], references: [id], onUpdate: Restrict, map: "Order_Product_ibfk_1")
+  Inventory  Inventory @relation(fields: [product_id], references: [id], onUpdate: Restrict, map: "Order_Product_ibfk_2")
 
   @@id([order_id, product_id])
   @@index([product_id], map: "product_id")
@@ -37,14 +37,14 @@ model Orders {
   Order_Product    Order_Product[]
 }
 
-model Users {
-  email    String  @id @unique(map: "email") @db.VarChar(255)
-  password String  @db.VarChar(255)
-  status   String? @default("customer") @db.VarChar(255)
-}
-
 model Weight {
   id     Int      @id @default(autoincrement())
   weight Decimal? @default(0.00) @db.Decimal(9, 2)
   cost   Decimal? @default(0.00) @db.Decimal(9, 2)
+}
+
+model User {
+  email    String  @id @db.VarChar(32)
+  password String  @db.VarChar(10)
+  status   String? @default("customer") @db.VarChar(8)
 }
