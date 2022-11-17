@@ -4,7 +4,7 @@
             <p>Sorry, something went wrong.</p>>
         </section>
         <section v-else>
-            <v-container fuild>
+            <v-container fluid>
                 <v-row>
                     <v-col v-for="(n,i) in products" :key="n" cols="4"> 
                         <v-card class="mx-auto text-center" height="275">
