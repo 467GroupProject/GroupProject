@@ -29,9 +29,8 @@
 </template>
 
 <script lang="ts">
-import authenticationService
- from '@/services/authenticationService';
- export default{
+import authenticationService from '@/services/authenticationService';
+export default{
     data: () => ({
         // array to hold all products
         products: [],
