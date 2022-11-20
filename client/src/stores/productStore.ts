@@ -5,11 +5,12 @@
 
 import { defineStore } from 'pinia';
 import authenticationService from '@/services/authenticationService';
+import { useStorage } from '@vueuse/core'
 
 export const useProductStore = defineStore('product', {
   state: () => ({
-      productList: [] as product[],
-      iventoryList: [] as inventory[],
+      productList: useStorage('productList', [] as product[]),
+      iventoryList: useStorage('inventoryList', [] as inventory[]),
 
   }),
   actions:{

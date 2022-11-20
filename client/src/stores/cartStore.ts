@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
+import { useStorage } from '@vueuse/core'
 
 export const useCartStore = defineStore('cart', {
     state: () => ({
-        cart: [] as cart[]
+        cart: useStorage('cart', [] as cart[])
     }),
     actions:{
         addToCart(id: number, quantity: number){
