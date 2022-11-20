@@ -25,13 +25,13 @@ app.use(cors());
 // qeury legacy database to get all products
 app.get('/products', async(req, res) => {
   const allParts = await legacyDB.parts.findMany();
-  res.json(allParts);
+  res.send(allParts);
 });
 
 // query internal database to get all inventory
 app.get('/iventory', async(req, res) => {
   const allInventory = await internalDB.inventory.findMany();
-  res.json(allInventory);
+  res.send(allInventory);
 })
 
 const server = app.listen(process.env.PORT || port, () =>
