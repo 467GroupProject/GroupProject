@@ -14,10 +14,21 @@ const vuetify = createVuetify({
     components, directives,
 })
 
+// Pinia
+import { createPinia } from 'pinia';
+const pinia = createPinia();
+
+// Font Awesome
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+// use all fonts
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas);
+
 const app = createApp(App)
 
-app.use(vuetify);
-
-app.use(router)
-
-app.mount('#app')
+app.use(vuetify)
+    .use(router)
+    .use(pinia)
+    .component("font-awesome-icon", FontAwesomeIcon)
+    .mount('#app')

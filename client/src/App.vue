@@ -1,25 +1,32 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
   <v-app id="vapp">
     <v-app-bar extended>
-      <nav>
         <RouterLink to="/">
-          <v-btn class="mx-4 white--text" 
+          <v-btn class="mx-10" 
           elevation="2" x-large rounded 
           color="black darken-1">
-          Home</v-btn>
+          <font-awesome-icon icon="fa-solid fa-home" />
+          &nbsp;Home</v-btn>
           </RouterLink>
         <RouterLink to="/products">
-          <v-btn class="mx-4 white--text" 
+          <v-btn class="mx-4" 
           elevation="2" x-large rounded 
           color="black darken-1">
-          Products</v-btn>
+          <font-awesome-icon icon="fa-solid fa-book" />
+          &nbsp;Products</v-btn>
         </RouterLink>
-      </nav>
-       
+        <v-spacer></v-spacer>
+        <RouterLink to="/cart">
+          <v-btn class="mx-10" 
+          elevation="2" x-large rounded 
+          color="black darken-1">
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" />
+          &nbsp;Cart</v-btn>
+        </RouterLink>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -33,48 +40,10 @@ import { RouterLink, RouterView } from 'vue-router'
           <v-btn class="mx-4 white--text" 
           elevation="2" x-large rounded 
           color="black darken-1">
-          About</v-btn>
+          <font-awesome-icon icon="fa-sold fa-info" />
+          &nbsp;About</v-btn>
           </RouterLink>
     </v-col>
   </v-footer>
   </v-app>
 </template>
-
-<style scoped>
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  nav {
-    text-align: left;
-    margin-left: 2rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
-
