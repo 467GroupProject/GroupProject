@@ -1,16 +1,25 @@
 /**
- * Use Pinia to store gobal states of all products in the legacy database
- * and inventory in the internal database.
+ * Use Pinia to store all products in the legacy database and inventory
+ * in the internal database as gobal states.
  */
 
 import { defineStore } from 'pinia';
 import authenticationService from '@/services/authenticationService';
 import { useStorage } from '@vueuse/core'
 
+/**
+ * Define a store of product.
+ */
 export const useProductStore = defineStore('product', {
+  /**
+   * Save the state of the product list and inventory list.
+   * 
+   * @returns List of all the prodcuts in the legacy database and list of
+   * all inventory in the internal database.
+   */
   state: () => ({
-      productList: useStorage('productList', [] as product[]),
-      iventoryList: useStorage('inventoryList', [] as inventory[]),
+      productList: useStorage('productList', [] as Product[]),
+      iventoryList: useStorage('inventoryList', [] as Inventory[]),
 
   }),
   actions:{
@@ -29,7 +38,7 @@ export const useProductStore = defineStore('product', {
  * As per the Pinia documentation, not needed to make the state compatiable
  * with TypeScript, but did it just in case.
  */
-interface product {
+interface Product {
   number: number,
   description: string,
   price: number,
@@ -37,7 +46,10 @@ interface product {
   pictureURL: string
 }
 
-interface inventory {
+/**
+ * Interface for inventory.
+ */
+interface Inventory {
   id: number,
   quantity: number
 }

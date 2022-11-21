@@ -12,9 +12,11 @@
                     <v-badge content="Out of Stock" inline></v-badge>
                 </section>
                 <section v-else>
-                    <v-card-text>{{ productStore.iventoryList[i].quantity }}</v-card-text>
+                    <v-card-text>{{ productStore.iventoryList[i].quantity }} available</v-card-text>
                     
-                    <v-btn variant="outlined">
+                    <v-btn variant="outlined" @click="cartStore.addToCart(
+                        {id: p.number, quantity: 1}
+                    ) ">
                         <font-awesome-icon icon="fa-sold fa-cart-plus" />
                         &nbsp;Add to Cart</v-btn>
                 </section>
@@ -28,13 +30,16 @@
 
 <script lang="ts">
 import { useProductStore } from '@/stores/productStore';
+import { useCartStore } from '@/stores/cartStore';
 
 export default{
     setup(){
+        // use productStore and cartStore
         const productStore = useProductStore();
         productStore.fill();
+        const cartStore = useCartStore();
 
-        return { productStore }
+        return { productStore, cartStore }
     }
 }
 
