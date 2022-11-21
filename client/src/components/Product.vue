@@ -15,7 +15,7 @@
                     <v-card-text>{{ productStore.iventoryList[i].quantity }} available</v-card-text>
                     
                     <v-btn variant="outlined" @click="cartStore.addToCart(
-                        {id: p.number, quantity: 1}
+                        {id: i, quantity: 1}
                     ) ">
                         <font-awesome-icon icon="fa-sold fa-cart-plus" />
                         &nbsp;Add to Cart</v-btn>
