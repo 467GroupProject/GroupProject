@@ -47,7 +47,15 @@ app.post('/register', async(req, res) => {
 })
 
 app.post('/update', async(req, res) => {
-
+  const updateQty = await internalDB.inventory.update({
+    where: {
+      id: req.body.id
+    },
+    data: {
+      quantity: req.body.quantity
+    }
+  })
+  res.send(updateQty);
 })
 
 const server = app.listen(process.env.PORT || port, () =>
