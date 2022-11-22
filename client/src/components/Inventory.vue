@@ -29,7 +29,7 @@
                     </td>
                     <td class="text-left">
                         <v-btn @click="update(p.number,
-                        (productStore.iventoryList[i].quantity + parseInt(quantity)))">
+                        (productStore.iventoryList[i].quantity + Number(quantity)))">
                         Add</v-btn>
                     </td>
                 </tr>
