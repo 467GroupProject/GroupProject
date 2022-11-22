@@ -1,5 +1,8 @@
 <template>
     <v-container fluid class="text-center">
+        <v-text-field variant="outlined" class="Search"
+            v-model="search" label="Search"
+            ></v-text-field>
         <v-table>
             <tbody>
                 <tr>
@@ -20,12 +23,12 @@
                     <td class="text-left">{{ p.weight }} lb</td>
                     <td class="text-left">{{ productStore.iventoryList[i].quantity }}</td>
                     <td class="text-left">
-                        <v-text-field type="number" label="Quantity" min="0"
+                        <v-text-field type="number" label="Quantity" min="0" variant="outlined"
                         append-outer-icon="add" v-model="quantity" @click:append-outer="increment"
-                        prepend-icon="remove" @click:prepend="decrement"></v-text-field>
+                        prepend-icon="remove" @click:prepend="decrement" class="Quantity"></v-text-field>
                     </td>
                     <td class="text-left">
-                        <v-btn>Update</v-btn>
+                        <v-btn @click="update">Update</v-btn>
                     </td>
                 </tr>
             </tbody>
@@ -35,13 +38,16 @@
 
 <script lang="ts">
 import { useProductStore } from '@/stores/productStore';
+import authenticationService from '@/services/authenticationService';
 
 export default{
     setup() {
         const productStore = useProductStore();
         productStore.fill();
         const quantity: number = 0;
-        return { productStore, quantity };
+        const id: number = 0;
+        const search: string = '';
+        return { productStore, quantity, search, id };
     },
     methods: {
         increment(){
@@ -49,13 +55,19 @@ export default{
         },
         decrement(){
             this.quantity -= 1;
+        },
+        async update(){
+            const respons = await authenticationService.update({
+                id: this.id,
+                quantity: this.quantity
+            })
         }
     }
 }
 </script>
 
 <style scoped>
-    .v-text-field{
-        width: 125px
-    }
+.Quantity{
+    width: 125px;
+}
 </style>
