@@ -38,9 +38,18 @@ export const useCartStore = defineStore('cart', {
                 this.cart.push(cart)
             }
         },
+        /**
+         * Clear the entire contents of a shopping cart.
+         */
         clearCart(){
             this.cart.splice(0, this.cart.length)
         },
+        /**
+         * Update the quantity of a prodcut in a shopping cart.
+         * 
+         * @param cart Cart object, which is a product, whose quantity 
+         * will be updated.
+         */
         updateCart(cart: Cart){
             const i = this.cart.findIndex(s => s.id == cart.id)
             if(i > -1){
@@ -49,6 +58,12 @@ export const useCartStore = defineStore('cart', {
         }
     },
     getters:{
+        /**
+         * Check if a cart is empty.
+         * 
+         * @param state State of cart object
+         * @returns True if a cart is empty.
+         */
         isEmpty: (state) => state.cart.length == 0,
         count(): number {let counter: number = 0;
             // loop through the cart and add up all the quantity
@@ -58,6 +73,11 @@ export const useCartStore = defineStore('cart', {
             }
             return counter;
         },
+        /**
+         * Get the total number of products in a shopping cart.
+         * 
+         * @returns The total products in a shopping cart.
+         */
         total(): number {
             let totalCost: number = 0;
             for(const x in this.cart)
@@ -71,17 +91,33 @@ export const useCartStore = defineStore('cart', {
             }
             return parseFloat(totalCost.toFixed(2));
         },
+        /**
+         * Calculate the tax amount.
+         * 
+         * @returns The tax amount.
+         */
         taxes(): number {
             let tax: number = 0;
             // I think this is Illinois tax rate?
             tax = this.total * 0.0625;
             return parseFloat(tax.toFixed(2));
         },
+        /**
+         * Calculate the grand total of shopping cart.
+         * 
+         * @returns The grand total of a shopping cart.
+         */
         grandTotal(): number {
             // Add up tax amount and total
             let grand: number = this.taxes + this.total;
             return parseFloat(grand.toFixed(2));
         },
+        /**
+         * Get the weight of all prodcuts in a shopping cart.
+         * 
+         * @returns The combined total weight of all products in a
+         * shooping cart.
+         */
         weight(): number {
             let totalWeight: number = 0;
             for(const x in this.cart)
