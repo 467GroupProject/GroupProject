@@ -8,6 +8,7 @@ npm install
 ```
 
 ## Setting up Prisma ORM for querying database
+Please read the README.md that is in the Prisma folder.
 
 ## Run
 ```sh
