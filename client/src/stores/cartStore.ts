@@ -38,9 +38,8 @@ export const useCartStore = defineStore('cart', {
                 this.cart.push(cart)
             }
         },
-        // skeleton code, implement later
         clearCart(){
-            this.cart.pop();
+            this.cart.splice(0, this.cart.length)
         }
     },
     getters:{

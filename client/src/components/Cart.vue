@@ -44,11 +44,23 @@
                                     ${{ productStore.productList[c.id].price * c.quantity }}
                                 </td>
                                 <td>
-                                    <v-btn>Remove</v-btn>
+                                    <v-text-field type="number" label="Update" min="0" variant="outlined"
+                                    append-outer-icon="add" v-model="quantity" @click:append-outer="increment"
+                                    prepend-icon="remove" @click:prepend="decrement" class="Quantity"></v-text-field>
                                 </td>
+                                <td>
+                                    <v-btn>Update</v-btn>
+                                </td>
+                                <td></td>
                             </tr>
+                            <v-card-text></v-card-text>
                         </tbody>
                     </v-table>
+                    <v-spacer></v-spacer>
+                        <v-btn variant="outlined"
+                        @click="cartStore.clearCart()"
+                        ><font-awesome-icon icon="fa-solid fa-trash" />
+                        &nbsp;Clear Cart</v-btn>
                     <v-card-text></v-card-text>
                 </v-card>
             </v-col>
@@ -100,8 +112,24 @@ export default{
         productStore.fill();
         const cartStore = useCartStore();
 
-        return { productStore, cartStore };
+        const quantity: number = 0;
+
+        return { productStore, cartStore, quantity };
+    },
+    methods: {
+        increment(){
+            this.quantity += 1;
+        },
+        decrement(){
+            this.quantity -= 1;
+        }
     }
 }
 
 </script>
+
+<style scoped>
+.Quantity{
+    width: 125px;
+}
+</style>
