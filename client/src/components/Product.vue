@@ -7,18 +7,24 @@
                 <v-img height="100px" :src="p.pictureURL"/>
                 <v-card-text class="text-h6 font-weight-black">{{ p.description }}</v-card-text>
                 <v-card-text>${{ p.price }}</v-card-text>
-                <v-card-subtitle>{{ p.weight }} lb</v-card-subtitle>
                 <section v-if="productStore.iventoryList[i].quantity == 0">
                     <v-badge content="Out of Stock" inline></v-badge>
                 </section>
                 <section v-else>
                     <v-card-text>{{ productStore.iventoryList[i].quantity }} available</v-card-text>
-                    
+                    <span>
+                    <td class="text-left">
+                        <v-text-field type="number" label="Quantity" min="0" max="{{productStore.iventoryList[i].quantity}}"
+                        append-outer-icon="add" v-model="added" @click:append-outer="increment"
+                        prepend-icon="remove" @click:prepend="decrement"></v-text-field>
+                    </td>
+                    &nbsp;
                     <v-btn variant="outlined" @click="cartStore.addToCart(
-                        {id: i, quantity: 1}
+                        {id: i, quantity: added}
                     ) ">
                         <font-awesome-icon icon="fa-sold fa-cart-plus" />
                         &nbsp;Add to Cart</v-btn>
+                    </span>    
                 </section>
                 </v-card>
             </v-col>
@@ -39,8 +45,23 @@ export default{
         productStore.fill();
         const cartStore = useCartStore();
 
-        return { productStore, cartStore }
+        const added: number = 0;
+        return { productStore, cartStore, added }
+    },
+    methods: {
+        increment(){
+            this.added += 1;
+        },
+        decrement(){
+            this.added -= 1;
+        }
     }
 }
 
 </script>
+
+<style scoped>
+    .v-text-field{
+        width: 125px;
+    }
+</style>

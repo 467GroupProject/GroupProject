@@ -3,9 +3,10 @@
         <v-row>
             <v-col>
                 <v-card elevation="10">
+                    <v-card-text></v-card-text>
                     <v-card-title>Shopping Cart</v-card-title>
                     <v-table>
-                        <thead>
+                        <tbody>
                             <tr>
                                 <td class="text-left"></td>
                                 <td class="text-left"
@@ -20,8 +21,9 @@
                                 >Amount</td>
                                 <td></td>
                             </tr>
-                        </thead>
-                        <thead height="300px">
+                            <tr></tr>
+                        </tbody>
+                        <tbody height="300px">
                             <tr v-for="c in cartStore.cart" :key="c.id">
                                 <td class="text-left">
                                     <img :src="productStore.productList[c.id].pictureURL" />
@@ -45,8 +47,9 @@
                                     <v-btn>Remove</v-btn>
                                 </td>
                             </tr>
-                        </thead>
+                        </tbody>
                     </v-table>
+                    <v-card-text></v-card-text>
                 </v-card>
             </v-col>
         </v-row>
@@ -54,6 +57,7 @@
             <v-col></v-col>
             <v-col>
                 <v-card elevation="10">
+                    <v-card-text></v-card-text>
                     <v-card-title>Total</v-card-title>
                     <v-row>
                         <v-col>

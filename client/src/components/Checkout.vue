@@ -33,15 +33,13 @@
                         <v-text-field
                         label="MM/YY"
                         ></v-text-field>
-                        <v-text-field
-                        labe="CVC">
-                    </v-text-field>
+                    <v-card-text></v-card-text>
                 </v-card>
             </v-col>
             <v-col>
                 <v-card>
                     <v-card-text></v-card-text>
-                    <v-card-title>Cart Summary</v-card-title>
+                    <v-card-title>Order Summary</v-card-title>
                     <v-row>
                         <v-col>
                             <v-list class="text-right">Cart Subtotal: </v-list>
