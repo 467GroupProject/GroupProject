@@ -11,7 +11,7 @@
                     <td class="text-left">Price</td>
                     <td class="text-left">Weight</td>
                     <td class="text-left">Quantity</td>
-                    <td class="text-left">Update Quantity</td>
+                    <td class="text-left">Add to Inventory</td>
                 </tr>
             </tbody>
             <tbody>
@@ -23,12 +23,14 @@
                     <td class="text-left">{{ p.weight }} lb</td>
                     <td class="text-left">{{ productStore.iventoryList[i].quantity }}</td>
                     <td class="text-left">
-                        <v-text-field type="number" label="Quantity" min="0" variant="outlined"
+                        <v-text-field type="number" label="Add" min="0" variant="outlined"
                         append-outer-icon="add" v-model="quantity" @click:append-outer="increment"
                         prepend-icon="remove" @click:prepend="decrement" class="Quantity"></v-text-field>
                     </td>
                     <td class="text-left">
-                        <v-btn @click="update">Update</v-btn>
+                        <v-btn @click="update(p.number,
+                        (productStore.iventoryList[i].quantity + parseInt(quantity)))">
+                        Add</v-btn>
                     </td>
                 </tr>
             </tbody>
@@ -45,9 +47,8 @@ export default{
         const productStore = useProductStore();
         productStore.fill();
         const quantity: number = 0;
-        const id: number = 0;
         const search: string = '';
-        return { productStore, quantity, search, id };
+        return { productStore, quantity, search };
     },
     methods: {
         increment(){
@@ -56,10 +57,10 @@ export default{
         decrement(){
             this.quantity -= 1;
         },
-        async update(){
-            const respons = await authenticationService.update({
-                id: this.id,
-                quantity: this.quantity
+        async update(i: number, q: number){
+            const response = await authenticationService.update({
+                id: i,
+                quantity: q
             })
         }
     }

@@ -28,7 +28,7 @@ export default {
         return axiosApi().post('register', credentials);
     },
     update(updateI: updateInventory){
-        return axiosApi().post('update');
+        return axiosApi().post('update', updateI);
     }
 }
 
