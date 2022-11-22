@@ -5,14 +5,14 @@ import { RouterLink, RouterView } from 'vue-router';
 <template>
   <v-app id="vapp">
     <v-app-bar extended>
-        <RouterLink to="/">
+        <RouterLink to="/" class="text-decoration-none">
           <v-btn class="mx-10" 
           elevation="2" x-large rounded 
           color="black darken-1">
           <font-awesome-icon icon="fa-solid fa-home" />
           &nbsp;Home</v-btn>
           </RouterLink>
-        <RouterLink to="/products">
+        <RouterLink to="/products" class="text-decoration-none">
           <v-btn class="mx-4" 
           elevation="2" x-large rounded 
           color="black darken-1">
@@ -20,7 +20,7 @@ import { RouterLink, RouterView } from 'vue-router';
           &nbsp;Products</v-btn>
         </RouterLink>
         <v-spacer></v-spacer>
-        <RouterLink to="/cart">
+        <RouterLink to="/cart" class="text-decoration-none">
           <v-btn class="mx-10" 
           elevation="2" x-large rounded 
           color="black darken-1">
@@ -36,7 +36,7 @@ import { RouterLink, RouterView } from 'vue-router';
     <v-footer padless>
     <v-col class="text-center" cols="12">
       {{ new Date().toLocaleDateString() }}
-      <RouterLink to="/about">
+      <RouterLink to="/about" class="text-decoration-none">
           <v-btn class="mx-4 white--text" 
           elevation="2" x-large rounded 
           color="black darken-1">

@@ -20,5 +20,24 @@ export default {
      */
     inventory(){
         return axiosApi().get('iventory');
+    },
+    processCC(){
+        return axiosApi().post('http://blitz.cs.niu.edu/creditcard');
+    },
+    register(credentials: Credentials){
+        return axiosApi().post('register', credentials);
+    },
+    update(){
+        return axiosApi().post('update');
     }
+}
+
+interface Credentials {
+    email: string,
+    password: string,
+    status: string
+}
+interface updateInventory {
+    id: number,
+    quantity: number
 }

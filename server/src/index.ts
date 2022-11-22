@@ -28,10 +28,26 @@ app.get('/products', async(req, res) => {
   res.send(allParts);
 });
 
+
+
 // query internal database to get all inventory
 app.get('/iventory', async(req, res) => {
   const allInventory = await internalDB.inventory.findMany();
   res.send(allInventory);
+});
+
+app.get('/processCC', async(req, res) => {
+
+})
+
+app.post('/register', async(req, res) => {
+  res.send({
+    message: `Hello ${req.body.email} ${req.body.password} ${req.body.status}`
+  })
+})
+
+app.post('/update', async(req, res) => {
+
 })
 
 const server = app.listen(process.env.PORT || port, () =>
