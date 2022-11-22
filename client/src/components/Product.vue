@@ -16,7 +16,7 @@
                     <td class="text-left">
                         <v-text-field type="number" label="Quantity" min="0" max="{{productStore.iventoryList[i].quantity}}"
                         append-outer-icon="add" v-model="added" @click:append-outer="increment"
-                        prepend-icon="remove" @click:prepend="decrement"></v-text-field>
+                        prepend-icon="remove" @click:prepend="decrement" variant="outlined"></v-text-field>
                     </td>
                     &nbsp;
                     <v-btn variant="outlined" @click="cartStore.addToCart(
