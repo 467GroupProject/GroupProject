@@ -40,6 +40,12 @@ export const useCartStore = defineStore('cart', {
         },
         clearCart(){
             this.cart.splice(0, this.cart.length)
+        },
+        updateCart(cart: Cart){
+            const i = this.cart.findIndex(s => s.id == cart.id)
+            if(i > -1){
+                this.cart[i].quantity = cart.quantity
+            }
         }
     },
     getters:{

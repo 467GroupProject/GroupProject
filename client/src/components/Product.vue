@@ -14,7 +14,7 @@
                     <v-card-text>{{ productStore.iventoryList[i].quantity }} available</v-card-text>
                     <span>
                     <td class="text-left">
-                        <v-text-field type="number" label="Quantity" min="0" max="{{productStore.iventoryList[i].quantity}}"
+                        <v-text-field type="number" label="Quantity" min="0" max="productStore.iventoryList[i].quantity"
                         append-outer-icon="add" v-model="added" @click:append-outer="increment"
                         prepend-icon="remove" @click:prepend="decrement" variant="outlined"></v-text-field>
                     </td>

@@ -45,11 +45,14 @@
                                 </td>
                                 <td>
                                     <v-text-field type="number" label="Update" min="0" variant="outlined"
-                                    append-outer-icon="add" v-model="quantity" @click:append-outer="increment"
+                                    append-outer-icon="add" v-model="updated" @click:append-outer="increment"
                                     prepend-icon="remove" @click:prepend="decrement" class="Quantity"></v-text-field>
                                 </td>
                                 <td>
-                                    <v-btn>Update</v-btn>
+                                    <v-btn variant="outlined" @click="cartStore.updateCart(
+                                        {id: c.id, quantity: updated}
+                                    );updated=0"
+                                    >Update</v-btn>
                                 </td>
                                 <td></td>
                             </tr>
@@ -112,16 +115,16 @@ export default{
         productStore.fill();
         const cartStore = useCartStore();
 
-        const quantity: number = 0;
+        const updated: number = 0;
 
-        return { productStore, cartStore, quantity };
+        return { productStore, cartStore, updated };
     },
     methods: {
         increment(){
-            this.quantity += 1;
+            this.updated += 1;
         },
         decrement(){
-            this.quantity -= 1;
+            this.updated -= 1;
         }
     }
 }
