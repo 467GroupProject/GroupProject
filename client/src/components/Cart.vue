@@ -50,7 +50,7 @@
                                 </td>
                                 <td>
                                     <v-btn variant="outlined" @click="cartStore.updateCart(
-                                        {id: c.id, quantity: updated}
+                                        {id: c.id, quantity: Number(updated)}
                                     );updated=0"
                                     >Update</v-btn>
                                 </td>

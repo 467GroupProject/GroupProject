@@ -1,9 +1,13 @@
 <template>
     <v-container fluid class="text-center">
+        <v-text-field variant="outlined" class="Search"
+            v-model="search" label="Search"
+            ></v-text-field>
+        <v-data-table>
         <v-row>
             <v-col v-for="(p, i) in productStore.productList"
             :key="p.number" cols="4">
-                <v-card class="mx-auto" height="350px">
+                <v-card class="mx-auto" height="350px" variant="outlined">
                 <v-img height="100px" :src="p.pictureURL"/>
                 <v-card-text class="text-h6 font-weight-black">{{ p.description }}</v-card-text>
                 <v-card-text>${{ p.price }}</v-card-text>
@@ -20,7 +24,7 @@
                     </td>
                     &nbsp;
                     <v-btn variant="outlined" @click="cartStore.addToCart(
-                        {id: i, quantity: added}
+                        {id: i, quantity: Number(added)}
                     ) ">
                         <font-awesome-icon icon="fa-sold fa-cart-plus" />
                         &nbsp;Add to Cart</v-btn>
@@ -29,7 +33,7 @@
                 </v-card>
             </v-col>
         </v-row>
-
+        </v-data-table>
     </v-container>
     
 </template>
@@ -44,9 +48,10 @@ export default{
         const productStore = useProductStore();
         productStore.fill();
         const cartStore = useCartStore();
+        const search: string = ''
 
         const added: number = 0;
-        return { productStore, cartStore, added }
+        return { productStore, cartStore, added, search }
     },
     methods: {
         increment(){
@@ -63,5 +68,8 @@ export default{
 <style scoped>
     .v-text-field{
         width: 125px;
+    }
+    .Search{
+        width:auto;
     }
 </style>
