@@ -5,8 +5,8 @@
             ></v-text-field>
         <v-data-table>
         <v-row>
-            <v-col v-for="(p, i) in productStore.productList"
-            :key="p.number" cols="4">
+            <v-col v-for="(p, i) in searchProduct"
+            :key="i" cols="4">
                 <v-card class="mx-auto" height="350px" variant="outlined">
                 <v-img height="100px" :src="p.pictureURL"/>
                 <v-card-text class="text-h6 font-weight-black">{{ p.description }}</v-card-text>
@@ -18,7 +18,7 @@
                     <v-card-text>{{ productStore.iventoryList[i].quantity }} available</v-card-text>
                     <span>
                     <td class="text-left">
-                        <v-text-field type="number" label="Quantity" min="0" max="productStore.iventoryList[i].quantity"
+                        <v-text-field type="number" label="Quantity" min="0" max=""
                         append-outer-icon="add" v-model="added" @click:append-outer="increment"
                         prepend-icon="remove" @click:prepend="decrement" variant="outlined"></v-text-field>
                     </td>
@@ -48,10 +48,14 @@ export default{
         const productStore = useProductStore();
         productStore.fill();
         const cartStore = useCartStore();
-        const search: string = ''
 
         const added: number = 0;
-        return { productStore, cartStore, added, search }
+        return { productStore, cartStore, added }
+    },
+    data(){
+        return{
+            search: ''
+        }
     },
     methods: {
         increment(){
@@ -59,6 +63,20 @@ export default{
         },
         decrement(){
             this.added -= 1;
+        }
+    },
+    computed: {
+        searchProduct(){
+            const value = this.search.toLocaleLowerCase();
+            let searchArray = this.productStore.productList.filter(function(p){
+                return p.description.indexOf(value) > -1;
+            })
+            if(searchArray.length > 0){
+                return searchArray;
+            }
+            else{
+                return this.productStore.productList;
+            }
         }
     }
 }
