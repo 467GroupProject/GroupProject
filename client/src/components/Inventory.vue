@@ -15,7 +15,7 @@
                 </tr>
             </tbody>
             <tbody>
-                <tr v-for="(p, i) in productStore.productList"
+                <tr v-for="(p, i) in searchInventory"
                 :key="p.number">
                     <td class="text-left">{{ p.number }}</td>
                     <td class="text-left">{{ p.description }}</td>
@@ -47,8 +47,13 @@ export default{
         const productStore = useProductStore();
         productStore.fill();
         const quantity: number = 0;
-        const search: string = '';
-        return { productStore, quantity, search };
+        return { productStore, quantity };
+    },
+    data(){
+        return{
+            search: ''
+        }
+
     },
     methods: {
         increment(){
@@ -62,6 +67,23 @@ export default{
                 id: i,
                 quantity: q
             })
+        },
+        searchItem(){
+
+        }
+    },
+    computed: {
+        searchInventory(){
+            const value = this.search.toLowerCase();
+            let searchArray = this.productStore.productList.filter(function(p) {
+                return p.description == value; 
+            })
+            if(searchArray.length > 0){
+                return searchArray;
+            }
+            else{
+                return this.productStore.productList
+            }
         }
     }
 }
