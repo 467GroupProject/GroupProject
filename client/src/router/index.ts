@@ -43,10 +43,22 @@ const router = createRouter({
       component: () => import('../components/Register.vue')
     },
     {
-      path: '/inventory',
-      name: 'inventory',
-      component: () => import('../components/Inventory.vue')
-    }
+      path: '/warehouse',
+      name: 'warehouse',
+      component: () => import('../components/Warehouse.vue'),
+        children: [
+          {
+            path: '/receiving',
+            name: 'receiving',
+            component: () => import('../components/Receiving.vue')
+          },
+          {
+            path: '/orders',
+            name: 'orders',
+            component: () => import('../components/Orders.vue')
+          }
+        ]
+      }
   ]
 })
 
