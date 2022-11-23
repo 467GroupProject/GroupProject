@@ -2,36 +2,59 @@
     <v-container fluid class="text-center">
         <v-row>
             <v-col>
-                <v-card>
+                <v-card ref="form">
                     <v-card-text></v-card-text>
                     <v-card-title>Contact Information</v-card-title>
                     <v-card-text>
-                        <v-text-field
-                        label="First Name"
+                        <v-text-field ref="name"
+                        v-model="name"
+                        :rules="[() => !!name || 'This field is required']"
+                        :error-messages="errorMessages"
+                        label="Full Name"
+                        placeholder="Ned Flanders"
+                        required
                         ></v-text-field>
-                        <v-text-field
-                        label="Last Name"
-                        ></v-text-field>
-                        <v-text-field
+                        <v-text-field ref="address"
+                        v-model="address"
+                        :rules="[() => !!address || 'This field is required']"
                         label="Address"
+                        placeholder="744 Evergreen Terrace"
+                        required
                         ></v-text-field>
-                        <v-text-field
+                        <v-text-field ref="city"
+                        v-model="city"
+                        :rules="[() => !!city || 'This field is required']"
                         label="City"
-                        outlined></v-text-field>
-                        <v-text-field
-                        label="email"
+                        placeholder="Springfield"
+                        required
+                        ></v-text-field>
+                        <v-text-field ref="state"
+                        v-model="state"
+                        :rules="[() => !!state || 'This field is reuqired']"
+                        label="State/Province/Region"
+                        placeholder="OR"
+                        required
+                        ></v-text-field>
+                        <v-text-field ref="zip"
+                        v-model="zip"
+                        :rules="[() => !!zip || 'This field is required']"
+                        label="ZIP/Postal Code"
+                        placeholder="80085"
                         ></v-text-field>
                     </v-card-text>
                     <v-card-title>Payment Information</v-card-title>
                     <v-card-text></v-card-text>
                         <v-text-field
                         label="Credit Card Number"
+                        v-model="ccNumber"
                         ></v-text-field> 
                         <v-text-field
                         label="Full Name"
+                        v-model="ccName"
                         ></v-text-field>
                         <v-text-field
                         label="MM/YY"
+                        v-model="ccExpDate"
                         ></v-text-field>
                     <v-card-text></v-card-text>
                 </v-card>
@@ -52,7 +75,7 @@
                             <v-list class="text-left">${{ cartStore.total }}</v-list>
                             <v-list class="text-left">To be determined</v-list>
                             <v-list class="text-left">${{ cartStore.taxes }}</v-list>
-                            <v-list class="text-left">{{ cartStore.weight }}</v-list>
+                            <v-list class="text-left">{{ cartStore.weight }} lb(s)</v-list>
                             <v-list class="text-left">${{ cartStore.grandTotal }}</v-list>
                         </v-col>
                     </v-row>
@@ -77,22 +100,15 @@ export default{
     },
     data(){
         return{
-            states: [
-            'Alabama', 'Alaska', 'American Samoa', 'Arizona',
-            'Arkansas', 'California', 'Colorado', 'Connecticut',
-            'Delaware', 'District of Columbia', 'Federated States of Micronesia',
-            'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
-            'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-            'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
-            'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-            'Missouri', 'Montana', 'Nebraska', 'Nevada',
-            'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
-            'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio',
-            'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-            'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
-            'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
-            'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
-            ]
+            name: '',
+            address: '',
+            city: '',
+            state: '',
+            zip: '',
+            errorMessages: '',
+            ccNumber: '',
+            ccName: '',
+            ccExpDate: ''
         }
     }
 }
