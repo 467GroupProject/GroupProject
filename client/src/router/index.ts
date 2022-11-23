@@ -44,7 +44,7 @@ const router = createRouter({
     },
     {
       path: '/inventory',
-      name: 'register',
+      name: 'inventory',
       component: () => import('../components/Inventory.vue')
     }
   ]
