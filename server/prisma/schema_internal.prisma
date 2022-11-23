@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/internal"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("INTERNAL_URL")
+}
+
+model Inventory {
+  id            Int             @id
+  quantity      Int?
+  Order_Product Order_Product[]
+}
+
+model Order_Product {
+  order_id   Int
+  product_id Int
+  quantity   Int
+  Orders     Orders    @relation(fields: [order_id], references: [id], onUpdate: Restrict, map: "Order_Product_ibfk_1")
+  Inventory  Inventory @relation(fields: [product_id], references: [id], onUpdate: Restrict, map: "Order_Product_ibfk_2")
+
+  @@id([order_id, product_id])
+  @@index([product_id], map: "product_id")
+}
+
+model Orders {
+  id               Int             @id @default(autoincrement())
+  customer_name    String          @db.VarChar(255)
+  customer_email   String          @db.VarChar(255)
+  customer_address String          @db.VarChar(255)
+  total_amount     Decimal?        @default(0.00) @db.Decimal(9, 2)
+  total_weight     Decimal?        @default(0.00) @db.Decimal(9, 2)
+  status           String?         @default("open") @db.VarChar(6)
+  date             DateTime?       @default(now()) @db.DateTime(0)
+  Order_Product    Order_Product[]
+}
+
+model Weight {
+  id     Int      @id @default(autoincrement())
+  weight Decimal? @default(0.00) @db.Decimal(9, 2)
+  cost   Decimal? @default(0.00) @db.Decimal(9, 2)
+}
+
+model User {
+  email    String  @id @db.VarChar(32)
+  password String  @db.VarChar(10)
+  status   String? @default("customer") @db.VarChar(8)
+}
