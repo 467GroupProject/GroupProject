@@ -67,9 +67,9 @@ export default{
     },
     computed: {
         searchProduct(){
-            const value = this.search.toLocaleLowerCase();
+            const value = this.search.toLowerCase();
             let searchArray = this.productStore.productList.filter(function(p){
-                return p.description.indexOf(value) > -1;
+                return p.description.toLowerCase().indexOf(value) > -1;
             })
             if(searchArray.length > 0){
                 return searchArray;
