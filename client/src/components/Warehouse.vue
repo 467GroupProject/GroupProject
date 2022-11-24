@@ -12,16 +12,26 @@
             <RouterLink to="/receiving" class="text-decoration-none">
             <v-btn variant="outlined">
             <font-awesome-icon icon="fa-solid fa-truck-arrow-right" />
-            &nbsp;Receiving</v-btn>
+            &nbsp;Receiving
+            </v-btn>
             </RouterLink>
             <v-spacer></v-spacer>
         </v-toolbar>
-    <v-container fluid>
-    </v-container>
+    <section v-if="isWarehouse">
+        <v-img :src="`../src/assets/pexels-tiger-lily-4483610.jpg`" />
+    </section>
         <RouterView />
     </v-container>
 </template>
 
 <script lang="ts">
 import { RouterLink, RouterView } from "vue-router";
+
+export default{
+    computed: {
+        isWarehouse(): boolean{
+            return this.$route.path==='/warehouse'
+        }
+    }
+}
 </script>
