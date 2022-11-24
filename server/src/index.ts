@@ -28,16 +28,24 @@ app.get('/products', async(req, res) => {
   res.send(allParts);
 });
 
-
-
 // query internal database to get all inventory
 app.get('/iventory', async(req, res) => {
   const allInventory = await internalDB.inventory.findMany();
   res.send(allInventory);
 });
 
-app.get('/processCC', async(req, res) => {
-
+app.post('/orders', async(req, res) => {
+  const orders = await internalDB.orders.create({
+    data: {
+      customer_name: req.body.customer_name,
+      customer_email: req.body.customer_email,
+      customer_address: req.body.customer_address,
+      total_amount: req.body.total_amount,
+      total_weight: req.body.status,
+      date: req.body.date
+    }
+  })
+  res.send(orders)
 })
 
 app.post('/register', async(req, res) => {
