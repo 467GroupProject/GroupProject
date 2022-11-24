@@ -10,7 +10,7 @@
         </v-card-title>
         <v-card-text>
           You can browser through all of our products by clicking the
-          Product button on the top or clicking on
+          Product button on the top left or clicking on
           <a href="/products" rel="noopener">Products</a>.
         </v-card-text>
         <v-img :src="`../src/assets/pexels-pixabay-220974.jpg`" />
