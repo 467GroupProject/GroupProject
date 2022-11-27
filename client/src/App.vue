@@ -39,7 +39,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/about" class="text-decoration-none">
           <v-btn class="mx-4 white--text" 
           elevation="2" x-large rounded 
-          color="black darken-1">
+          color="info">
           <font-awesome-icon icon="fa-sold fa-info" />
           &nbsp;About</v-btn>
           </RouterLink>

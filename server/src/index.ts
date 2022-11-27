@@ -52,8 +52,7 @@ app.post('/orders', async(req, res) => {
         customer_email: req.body.customer_email,
         customer_address: req.body.customer_address,
         total_amount: req.body.total_amount,
-        total_weight: req.body.total_weight,
-        date: req.body.date
+        total_weight: req.body.total_weight
       }
     })
     res.send(orders)
@@ -80,6 +79,16 @@ app.post('/update', async(req, res) => {
       }
     })
     res.send(updateQty);
+  }
+  catch(error){
+    res.send(error);
+  }
+})
+
+app.get('/weight', async(req, res) => {
+  try{
+    const weightBracket = await internalDB.weight.findMany();
+    res.send(weightBracket);
   }
   catch(error){
     res.send(error);

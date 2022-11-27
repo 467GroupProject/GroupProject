@@ -6,41 +6,28 @@
                     <v-card-text></v-card-text>
                     <v-card-title>Contact Information</v-card-title>
                     <v-card-text>
-                        <v-text-field ref="name"
-                        v-model="name"
-                        :rules="[() => !!name || 'This field is required']"
-                        :error-messages="errorMessages"
+                        <v-text-field ref="cust_name"
+                        v-model="cust_name"
+                        :rules="[() => !!cust_name || 'This field is required']"
                         label="Full Name"
                         placeholder="Ned Flanders"
                         required
                         ></v-text-field>
-                        <v-text-field ref="address"
-                        v-model="address"
-                        :rules="[() => !!address || 'This field is required']"
+                        <v-text-field ref="cust_address"
+                        v-model="cust_address"
+                        :rules="[() => !!cust_address || 'This field is required']"
                         label="Address"
-                        placeholder="744 Evergreen Terrace"
+                        placeholder="744 Evergreen Terrace, Springfield OR, 58008"
                         required
                         ></v-text-field>
-                        <v-text-field ref="city"
-                        v-model="city"
-                        :rules="[() => !!city || 'This field is required']"
-                        label="City"
-                        placeholder="Springfield"
+                        <v-text-field ref="cust_email"
+                        v-model="cust_email"
+                        :rules="[() => !!cust_email || 'This field is required']"
+                        label="e-mail"
+                        placeholder="nedflanders@leftorium.com"
                         required
-                        ></v-text-field>
-                        <v-text-field ref="state"
-                        v-model="state"
-                        :rules="[() => !!state || 'This field is reuqired']"
-                        label="State/Province/Region"
-                        placeholder="OR"
-                        required
-                        ></v-text-field>
-                        <v-text-field ref="zip"
-                        v-model="zip"
-                        :rules="[() => !!zip || 'This field is required']"
-                        label="ZIP/Postal Code"
-                        placeholder="80085"
-                        ></v-text-field>
+                        >
+                        </v-text-field>
                     </v-card-text>
                     <v-card-title>Payment Information</v-card-title>
                     <v-card-text></v-card-text>
@@ -79,7 +66,10 @@
                             <v-list class="text-left">${{ cartStore.grandTotal }}</v-list>
                         </v-col>
                     </v-row>
-                <v-card-text></v-card-text>    
+                <v-card-text></v-card-text>
+                <v-btn variant="outlined"
+                >Submit</v-btn>
+                <v-card-text></v-card-text>
                 </v-card>
             </v-col>
         </v-row>
@@ -89,6 +79,7 @@
 <script lang="ts">
 import { useProductStore } from '@/stores/productStore';
 import { useCartStore } from '@/stores/cartStore';
+import authenticationService from '@/services/authenticationService';
 
 export default{
     setup(){
@@ -100,15 +91,23 @@ export default{
     },
     data(){
         return{
-            name: '',
-            address: '',
-            city: '',
-            state: '',
-            zip: '',
-            errorMessages: '',
+            cust_name: '',
+            cust_address: '',
+            cust_email: '',
             ccNumber: '',
             ccName: '',
             ccExpDate: ''
+        }
+    },
+    methods: {
+        async orderProd(){
+            const respose = await authenticationService.orders({
+                customer_name: cust_name,
+                customer_address: cust_address,
+                customer_email: cust_email,
+                total_amount: cartStore.total,
+                total_weight: cartStore.weight
+            })
         }
     }
 }

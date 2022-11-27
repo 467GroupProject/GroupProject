@@ -5,6 +5,7 @@
 import { defineStore } from "pinia";
 import { useStorage } from '@vueuse/core';
 import { useProductStore } from "./productStore";
+import authenticationService from "@/services/authenticationService";
 
 const productStore = useProductStore();
 productStore.fill();
@@ -101,6 +102,10 @@ export const useCartStore = defineStore('cart', {
             // I think this is Illinois tax rate?
             tax = this.total * 0.0625;
             return parseFloat(tax.toFixed(2));
+        },
+        shipping(): number{
+            const weightBracket = authenticationService.weights();
+            return 0;
         },
         /**
          * Calculate the grand total of shopping cart.

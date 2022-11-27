@@ -67,9 +67,6 @@ export default{
                 id: i,
                 quantity: q
             })
-        },
-        searchItem(){
-
         }
     },
     computed: {

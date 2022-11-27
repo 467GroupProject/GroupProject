@@ -39,4 +39,14 @@
     </v-card>
   </template>
 <script lang="ts">
+export default{
+    data(){
+        return{
+            form: '',
+            email: '',
+            password: '',
+            loading: ''
+        }
+    }
+}
 </script>
