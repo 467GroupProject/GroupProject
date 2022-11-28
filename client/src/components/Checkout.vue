@@ -40,7 +40,7 @@
                         v-model="ccName"
                         ></v-text-field>
                         <v-text-field
-                        label="MM/YY"
+                        label="MM/YYYY"
                         v-model="ccExpDate"
                         ></v-text-field>
                     <v-card-text></v-card-text>
@@ -66,7 +66,7 @@
                     </v-row>
                 <v-card-text></v-card-text>
                 <v-btn variant="outlined"
-                @click="orders(cust_name, cust_address, cust_email, cartStore.total, cartStore.weight)"
+                @click="submit()"
                 >Submit</v-btn>
                 <v-card-text></v-card-text>
                 </v-card>
@@ -79,6 +79,7 @@
 import { useProductStore } from '@/stores/productStore';
 import { useCartStore } from '@/stores/cartStore';
 import authenticationService from '@/services/authenticationService';
+import axios from 'axios';
 
 export default{
     setup(){
@@ -109,6 +110,20 @@ export default{
                 total_amount: total_amt,
                 total_weight: total_wght
             })
+        },
+        async submit() {
+            const transaction = {
+                vendor: "Hooli",
+                trans: (Math.random() * 1000).toFixed(0) + "-987654321-" + (Math.random() * 1000).toFixed(0),
+                cc: this.ccNumber,
+                name: this.ccName,
+                exp: this.ccExpDate,
+                amount: this.cartStore.total
+            }
+            const response = axios.post('http://blitz.cs.niu.edu/creditcard', transaction)
+                .then((response) => {
+                    console.log(response.data)
+                })
         }
     }
 }
