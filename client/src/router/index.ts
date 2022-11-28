@@ -38,9 +38,21 @@ const router = createRouter({
       component: () => import('../components/Login.vue')
     },
     {
-      path: '/register',
-      name: 'register',
-      component: () => import('../components/Register.vue')
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../components/Admin.vue'),
+        children: [
+          {
+            path: '/allOrders',
+            name: 'allOrders',
+            component: () => import('../components/All.vue')
+          },
+          {
+            path: '/weights',
+            name: 'weights',
+            component: () => import('../components/Weights.vue')
+          }
+        ]
     },
     {
       path: '/warehouse',

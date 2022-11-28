@@ -67,16 +67,13 @@ export default{
                 id: i,
                 quantity: q
             })
-        },
-        searchItem(){
-
         }
     },
     computed: {
         searchInventory(){
             const value = this.search.toLowerCase();
             let searchArray = this.productStore.productList.filter(function(p) {
-                return p.description.indexOf(value) > -1; 
+                return p.description.toLowerCase().indexOf(value) > -1; 
             })
             if(searchArray.length > 0){
                 return searchArray;

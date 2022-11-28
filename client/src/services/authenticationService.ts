@@ -29,6 +29,12 @@ export default {
     },
     update(updateI: updateInventory){
         return axiosApi().post('update', updateI);
+    },
+    orders(orderProd: orderProduct){
+        return axiosApi().post('orders', orderProd);
+    },
+    weights(){
+        return axiosApi().get('weight');
     }
 }
 
@@ -40,4 +46,12 @@ interface Credentials {
 interface updateInventory {
     id: number,
     quantity: number
+}
+
+interface orderProduct{
+    customer_name: string,
+    customer_email: string,
+    customer_address: string,
+    total_amount: Number,
+    total_weight: Number,
 }

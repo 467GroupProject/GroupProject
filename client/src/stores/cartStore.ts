@@ -5,9 +5,13 @@
 import { defineStore } from "pinia";
 import { useStorage } from '@vueuse/core';
 import { useProductStore } from "./productStore";
+import { useWeightStore } from "./weightStore";
 
 const productStore = useProductStore();
 productStore.fill();
+
+const weightStore = useWeightStore();
+weightStore.fill();
 
 /**
  * Define the state of a cart.
@@ -89,18 +93,7 @@ export const useCartStore = defineStore('cart', {
                 // multiply price x quantity and accumualte on totalCost
                 totalCost += cost * this.cart[x].quantity;
             }
-            return parseFloat(totalCost.toFixed(2));
-        },
-        /**
-         * Calculate the tax amount.
-         * 
-         * @returns The tax amount.
-         */
-        taxes(): number {
-            let tax: number = 0;
-            // I think this is Illinois tax rate?
-            tax = this.total * 0.0625;
-            return parseFloat(tax.toFixed(2));
+            return Number(totalCost.toFixed(2));
         },
         /**
          * Calculate the grand total of shopping cart.
@@ -108,9 +101,9 @@ export const useCartStore = defineStore('cart', {
          * @returns The grand total of a shopping cart.
          */
         grandTotal(): number {
-            // Add up tax amount and total
-            let grand: number = this.taxes + this.total;
-            return parseFloat(grand.toFixed(2));
+            // Add up shipping and total
+            const grand: number = Number(this.shipping) + Number(this.total);
+            return Number(grand.toFixed(2));
         },
         /**
          * Get the weight of all prodcuts in a shopping cart.
@@ -127,6 +120,23 @@ export const useCartStore = defineStore('cart', {
                 totalWeight += pWeight * this.cart[x].quantity
             }
             return totalWeight;
+        },
+        /**
+         * Calculate shipping cost based on weight of all products in shipping cart.
+         * 
+         * @returns The total shipping cost.
+         */
+        shipping(): number{
+            let shippingCost: number = 0;
+            for(const x in weightStore.weightBrackets)
+            {
+                let weightB: number = weightStore.weightBrackets[x].weight;
+                if(this.weight >= weightB)
+                {
+                    shippingCost = weightStore.weightBrackets[x].cost;
+                }
+            }
+            return shippingCost;
         }
     }
 })
