@@ -23,7 +23,7 @@
                         <v-text-field ref="cust_email"
                         v-model="cust_email"
                         :rules="[() => !!cust_email || 'This field is required']"
-                        label="e-mail"
+                        label="E-mail"
                         placeholder="nedflanders@leftorium.com"
                         required
                         >
@@ -54,20 +54,19 @@
                         <v-col>
                             <v-list class="text-right">Cart Subtotal: </v-list>
                             <v-list class="text-right">Shipping: </v-list>
-                            <v-list class="text-right">Taxes: </v-list>
                             <v-list class="text-right">Total Weight: </v-list>
                             <v-list class="text-right">Cart Total:</v-list>
                         </v-col>
                         <v-col>
                             <v-list class="text-left">${{ cartStore.total }}</v-list>
-                            <v-list class="text-left">To be determined</v-list>
-                            <v-list class="text-left">${{ cartStore.taxes }}</v-list>
+                            <v-list class="text-left">${{ cartStore.shipping }}</v-list>
                             <v-list class="text-left">{{ cartStore.weight }} lb(s)</v-list>
                             <v-list class="text-left">${{ cartStore.grandTotal }}</v-list>
                         </v-col>
                     </v-row>
                 <v-card-text></v-card-text>
                 <v-btn variant="outlined"
+                @click="orders(cust_name, cust_address, cust_email, cartStore.total, cartStore.weight)"
                 >Submit</v-btn>
                 <v-card-text></v-card-text>
                 </v-card>
@@ -100,13 +99,15 @@ export default{
         }
     },
     methods: {
-        async orderProd(){
+        async orders( cust_name: string, cust_address: string, cust_email: string,
+            total_amt: Number, total_wght: Number
+        ){
             const respose = await authenticationService.orders({
                 customer_name: cust_name,
                 customer_address: cust_address,
                 customer_email: cust_email,
-                total_amount: cartStore.total,
-                total_weight: cartStore.weight
+                total_amount: total_amt,
+                total_weight: total_wght
             })
         }
     }
