@@ -78,14 +78,12 @@
                         <v-col>
                             <v-list class="text-right">Cart Subtotal:</v-list>
                             <v-list class="text-right">Shipping: </v-list>
-                            <v-list class="text-right">Taxes: </v-list>
                             <v-list class="text-right">Total Weight: </v-list>
                             <v-list class="text-right">Cart Total:</v-list>
                         </v-col>
                         <v-col>
                             <v-list class="text-left">${{ cartStore.total }}</v-list>
-                            <v-list class="text-left">To be determined</v-list>
-                            <v-list class="text-left">${{ cartStore.taxes }}</v-list>
+                            <v-list class="text-left">${{ cartStore.shipping }} </v-list>
                             <v-list class="text-left">{{ cartStore.weight }} lb(s)</v-list>
                             <v-list class="text-left">${{ cartStore.grandTotal }}</v-list>
                         </v-col>

@@ -5,10 +5,13 @@
 import { defineStore } from "pinia";
 import { useStorage } from '@vueuse/core';
 import { useProductStore } from "./productStore";
-import authenticationService from "@/services/authenticationService";
+import { useWeightStore } from "./weightStore";
 
 const productStore = useProductStore();
 productStore.fill();
+
+const weightStore = useWeightStore();
+weightStore.fill();
 
 /**
  * Define the state of a cart.
@@ -93,28 +96,13 @@ export const useCartStore = defineStore('cart', {
             return parseFloat(totalCost.toFixed(2));
         },
         /**
-         * Calculate the tax amount.
-         * 
-         * @returns The tax amount.
-         */
-        taxes(): number {
-            let tax: number = 0;
-            // I think this is Illinois tax rate?
-            tax = this.total * 0.0625;
-            return parseFloat(tax.toFixed(2));
-        },
-        shipping(): number{
-            const weightBracket = authenticationService.weights();
-            return 0;
-        },
-        /**
          * Calculate the grand total of shopping cart.
          * 
          * @returns The grand total of a shopping cart.
          */
         grandTotal(): number {
             // Add up tax amount and total
-            let grand: number = this.taxes + this.total;
+            let grand: number = this.shipping + this.total;
             return parseFloat(grand.toFixed(2));
         },
         /**
@@ -132,6 +120,23 @@ export const useCartStore = defineStore('cart', {
                 totalWeight += pWeight * this.cart[x].quantity
             }
             return totalWeight;
+        },
+        /**
+         * Calculate shipping cost based on weight of all products in shipping cart.
+         * 
+         * @returns The total shipping cost.
+         */
+        shipping(): number{
+            let shippingCost: number = 0;
+            for(const x in weightStore.weightBrackets)
+            {
+                let weightB: number = weightStore.weightBrackets[x].weight;
+                if(this.weight >= weightB)
+                {
+                    shippingCost = weightStore.weightBrackets[x].cost;
+                }
+            }
+            return shippingCost;
         }
     }
 })
