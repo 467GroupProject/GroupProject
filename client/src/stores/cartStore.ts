@@ -93,7 +93,7 @@ export const useCartStore = defineStore('cart', {
                 // multiply price x quantity and accumualte on totalCost
                 totalCost += cost * this.cart[x].quantity;
             }
-            return parseFloat(totalCost.toFixed(2));
+            return Number(totalCost.toFixed(2));
         },
         /**
          * Calculate the grand total of shopping cart.
@@ -101,9 +101,9 @@ export const useCartStore = defineStore('cart', {
          * @returns The grand total of a shopping cart.
          */
         grandTotal(): number {
-            // Add up tax amount and total
-            let grand: number = this.shipping + this.total;
-            return parseFloat(grand.toFixed(2));
+            // Add up shipping and total
+            const grand: number = Number(this.shipping) + Number(this.total);
+            return Number(grand.toFixed(2));
         },
         /**
          * Get the weight of all prodcuts in a shopping cart.
