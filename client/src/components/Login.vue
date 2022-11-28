@@ -6,8 +6,7 @@
         >
             <v-text-field
             v-model="email"
-            :readonly="loading"
-            :rules="[required]"
+            :rules="[() => !!email || 'This field is required']"
             class="mb-2"
             clearable
             label="Email"
@@ -15,8 +14,7 @@
 
             <v-text-field
             v-model="password"
-            :readonly="loading"
-            :rules="[required]"
+            :rules="[() => !!password || 'This field is required']"
             clearable
             label="Password"
             placeholder="Enter your password"
@@ -26,14 +24,13 @@
 
             <v-btn
             :disabled="!form"
-            :loading="loading"
             block
             color="success"
             size="large"
             type="submit"
             variant="elevated"
             >
-            Sign In
+            Log In
             </v-btn>
         </v-form>
     </v-card>
@@ -45,7 +42,6 @@ export default{
             form: '',
             email: '',
             password: '',
-            loading: ''
         }
     }
 }
