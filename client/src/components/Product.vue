@@ -25,7 +25,8 @@
                     &nbsp;
                     <v-btn variant="outlined" @click="cartStore.addToCart(
                         {id: i, quantity: Number(added)}
-                    ) ">
+                    ); snackbar= true; addedToCart(Number(added), productStore.productList[i].description)
+                    ; refresh()">
                         <font-awesome-icon icon="fa-sold fa-cart-plus" />
                         &nbsp;Add to Cart</v-btn>
                     </span>    
@@ -34,6 +35,9 @@
             </v-col>
         </v-row>
         </v-data-table>
+        <v-snackbar v-model="snackbar" :multi-line="multiline" color="green">
+            {{ text }}
+        </v-snackbar>
     </v-container>
     
 </template>
@@ -54,7 +58,10 @@ export default{
     },
     data(){
         return{
-            search: ''
+            search: '',
+            snackbar: false,
+            multiline: true,
+            text: ''
         }
     },
     methods: {
@@ -63,6 +70,14 @@ export default{
         },
         decrement(){
             this.added -= 1;
+        },
+        addedToCart(q: Number, item: any){
+            this.text = `${q} ${item} Added to Cart`
+        },
+        refresh(){
+            setTimeout(function() {
+                location.reload()
+            }, 3000)
         }
     },
     computed: {

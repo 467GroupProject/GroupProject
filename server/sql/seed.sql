@@ -1,36 +1,22 @@
 -- sql to seed demo data into internal database
 
-LOAD DATA LOCAL INFILE 'C:/Users/dotbo/OneDrive/Desktop/Class Files/CSCI 467 - Intro Software Engineering/git-repo/GroupProject/server/sql/weight.csv'
-INTO TABLE weight
+LOAD DATA LOCAL INFILE 'weight.csv'
+INTO TABLE Weight
 FIELDS TERMINATED BY ','
 ENCLOSED BY ''
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
-LOAD DATA LOCAL INFILE 'C:/Users/dotbo/OneDrive/Desktop/Class Files/CSCI 467 - Intro Software Engineering/git-repo/GroupProject/server/sql/inventory.csv' 
-INTO TABLE inventory
+LOAD DATA LOCAL INFILE 'inventory.csv' 
+INTO TABLE Inventory
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY ''
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
-LOAD DATA LOCAL INFILE 'C:/Users/dotbo/OneDrive/Desktop/Class Files/CSCI 467 - Intro Software Engineering/git-repo/GroupProject/server/sql/user.csv' 
-INTO TABLE user
+LOAD DATA LOCAL INFILE 'user.csv' 
+INTO TABLE User
 FIELDS TERMINATED BY ',' 
 ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE 'C:/Users/dotbo/OneDrive/Desktop/Class Files/CSCI 467 - Intro Software Engineering/git-repo/GroupProject/server/sql/orders.csv' 
-INTO TABLE orders
-FIELDS TERMINATED BY ',' 
-ENCLOSED BY ''
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-
-LOAD DATA LOCAL INFILE 'C:/Users/dotbo/OneDrive/Desktop/Class Files/CSCI 467 - Intro Software Engineering/git-repo/GroupProject/server/sql/order_product.csv' 
-INTO TABLE order_product
-FIELDS TERMINATED BY ',' 
-ENCLOSED BY ''
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;

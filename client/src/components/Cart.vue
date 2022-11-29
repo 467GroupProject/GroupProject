@@ -51,7 +51,8 @@
                                 <td>
                                     <v-btn variant="outlined" @click="cartStore.updateCart(
                                         {id: c.id, quantity: Number(updated)}
-                                    );updated=0"
+                                    );snackbar=true; text=`Updated ${updated} ${productStore.productList[c.id].description}`
+                                    ; refresh()"
                                     >Update</v-btn>
                                 </td>
                                 <td></td>
@@ -61,7 +62,7 @@
                     </v-table>
                     <v-spacer></v-spacer>
                         <v-btn variant="outlined"
-                        @click="cartStore.clearCart()"
+                        @click="cartStore.clearCart(); snackbar=true; text=`Cart Cleared`"
                         ><font-awesome-icon icon="fa-solid fa-trash" />
                         &nbsp;Clear Cart</v-btn>
                     <v-card-text></v-card-text>
@@ -100,6 +101,9 @@
                 </v-card>
             </v-col>
         </v-row>
+        <v-snackbar v-model="snackbar" color="green">
+            {{ text }}
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -117,12 +121,23 @@ export default{
 
         return { productStore, cartStore, updated };
     },
+    data() {
+        return{
+            snackbar: false,
+            text: ''
+        }
+    },
     methods: {
         increment(){
             this.updated += 1;
         },
         decrement(){
             this.updated -= 1;
+        },
+        refresh(){
+            setTimeout(function(){
+                location.reload()
+            }, 3000)
         }
     }
 }

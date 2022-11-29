@@ -58,6 +58,10 @@ export const useCartStore = defineStore('cart', {
             const i = this.cart.findIndex(s => s.id == cart.id)
             if(i > -1){
                 this.cart[i].quantity = cart.quantity
+                if(this.cart[i].quantity === 0)
+                {
+                    this.cart.splice(i, 1);
+                }
             }
         }
     },
@@ -119,7 +123,7 @@ export const useCartStore = defineStore('cart', {
                 let pWeight: number = productStore.productList[index].weight;
                 totalWeight += pWeight * this.cart[x].quantity
             }
-            return totalWeight;
+            return Number(totalWeight.toFixed(2));
         },
         /**
          * Calculate shipping cost based on weight of all products in shipping cart.

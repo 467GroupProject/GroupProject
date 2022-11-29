@@ -12,6 +12,7 @@
                     <td class="text-left">Weight</td>
                     <td class="text-left">Quantity</td>
                     <td class="text-left">Add to Inventory</td>
+                    <td></td>
                 </tr>
             </tbody>
             <tbody>
@@ -89,5 +90,8 @@ export default{
 <style scoped>
 .Quantity{
     width: 125px;
+}
+tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, .05);
 }
 </style>
