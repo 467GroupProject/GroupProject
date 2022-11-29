@@ -70,9 +70,19 @@
                                 <v-card-title>
                                     {{ text }}
                                 </v-card-title>
+                                <v-card-text></v-card-text>
+                                <v-card-text>
+                                    {{ subtext }}
+                                </v-card-text>
+                                <v-card-text>
+                                    {{ subtitle }}
+                                </v-card-text>
+                                <v-card-text></v-card-text>
+                                <v-card-text>Thank You For Shopping With Us</v-card-text>
+                                <v-card-text></v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn text @click="dialog = false; cartStore.clearCart"
+                                    <v-btn text @click="dialog = false; clear()"
                                     >OK</v-btn>
                                 </v-card-actions>
                             </v-card>
@@ -113,7 +123,8 @@ export default{
             ccExpDate: '',
             dialog: false,
             text: '',
-            orderNumber: Number(0)
+            subtext: '',
+            subtitle: ''
         }
     },
     methods: {
@@ -143,10 +154,16 @@ export default{
                             shopping_cart: this.cartStore.cart
                         })
                             .then(async (response) => {
-                                console.log(response.data)
+                                this.text = `Confirmation: ${response.data.id} created`
+                                this.subtext = `Amount: ${response.data.amount}, Auth: ${response.data.auth}`
+                                this.subtitle = `For: ${response.data.name}, at ${response.data.email}`
                             })
                     }
                 })
+                this.dialog=true;
+        },
+        clear(){
+            this.cartStore.clearCart();
         }
     }
 }
