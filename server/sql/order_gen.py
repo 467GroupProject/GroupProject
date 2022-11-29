@@ -67,7 +67,7 @@ for i in range(0, len(lines)):
     #pick >>random_day<< between start_date and end_date
     #end_date must be after start date
     start_date = datetime.date(2018, 1, 1)
-    end_date = datetime.date(2024, 12, 31)
+    end_date = datetime.date(2020, 12, 31)
     time_between = end_date - start_date
     days_between = time_between.days
     random_num_days = random.randint(0, days_between)
@@ -115,8 +115,8 @@ for i in range(0, len(prods_raw)):
     if (i==0):
         continue
     l = prods_raw[i]
-    l = l.split("\"")
-    id = l[1]
+    l = l.split(",")
+    id = l[0]
     #print(str(l))
     #print(str(id))
     prod_ids.append(str(id))
