@@ -100,17 +100,6 @@ export default{
         }
     },
     methods: {
-        async orders( cust_name: string, cust_address: string, cust_email: string,
-            total_amt: Number, total_wght: Number
-        ){
-            const respose = await authenticationService.orders({
-                customer_name: cust_name,
-                customer_address: cust_address,
-                customer_email: cust_email,
-                total_amount: total_amt,
-                total_weight: total_wght
-            })
-        },
         async submit() {
             const transaction = {
                 vendor: "Hooli",
@@ -121,8 +110,22 @@ export default{
                 amount: this.cartStore.total
             }
             const response = axios.post('http://blitz.cs.niu.edu/creditcard', transaction)
-                .then((response) => {
-                    console.log(response.data)
+                .then(async (response) => {
+                    if(response.status == 400)
+                    {
+                        alert('Credit card denied')   
+                    }
+                    if(response.status == 200)
+                    {
+                        const orderResponse = await authenticationService.orders({
+                            customer_name: this.cust_name,
+                            customer_address: this.cust_address,
+                            customer_email: this.cust_email,
+                            total_amount: this.cartStore.total,
+                            total_weight: this.cartStore.weight,
+                            shopping_cart: this.cartStore.cart
+                        })
+                    }
                 })
         }
     }

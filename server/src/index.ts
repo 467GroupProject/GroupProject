@@ -56,16 +56,25 @@ app.post('/orders', async(req, res) => {
       }
     })
     res.send(orders)
+    try{
+      for(const x in req.body.shopping_cart)
+      {
+        const orderProd = await internalDB.order_Product.create({
+          data: {
+            order_id: orders.id,
+            product_id: req.body.shopping_cart[x].id,
+            quantity: req.body.shopping_cart[x].quantity
+          }
+        })
+      }
+    }
+    catch(error){
+      res.send(error)
+    }
   }
   catch(error){
     res.send(error);
   }
-})
-
-app.post('/register', async(req, res) => {
-  res.send({
-    message: `Hello ${req.body.email} ${req.body.password} ${req.body.status}`
-  })
 })
 
 app.post('/update', async(req, res) => {
