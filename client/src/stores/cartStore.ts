@@ -58,6 +58,10 @@ export const useCartStore = defineStore('cart', {
             const i = this.cart.findIndex(s => s.id == cart.id)
             if(i > -1){
                 this.cart[i].quantity = cart.quantity
+                if(this.cart[i].quantity === 0)
+                {
+                    this.cart.splice(i, 1);
+                }
             }
         }
     },
@@ -136,7 +140,7 @@ export const useCartStore = defineStore('cart', {
                     shippingCost = weightStore.weightBrackets[x].cost;
                 }
             }
-            return Number(shippingCost.toFixed(2));
+            return shippingCost;
         }
     }
 })
