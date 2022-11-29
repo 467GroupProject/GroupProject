@@ -146,6 +146,35 @@ app.get('/getOrderProduct', async(req, res) => {
   }
 })
 
+app.post('/removeWeight', async(req, res) => {
+  try{
+    const remWeight = await internalDB.weight.delete({
+      where:{
+        id: req.body.id
+      }
+    })
+    res.send(remWeight);
+  }
+  catch(error) {
+    res.send(error);
+  }
+})
+
+app.post('/insertWeight', async(req, res) => {
+  try{
+    const insert = await internalDB.weight.create({
+      data: {
+        weight: req.body.weight,
+        cost: req.body.cost
+      }
+    })
+    res.send(insert)
+  }
+  catch(error) {
+    res.send(error);
+  }
+})
+
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`listening on port ${port}`),
 );

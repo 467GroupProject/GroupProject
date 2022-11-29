@@ -13,22 +13,35 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr class="trow">
+                    <tr class="trow" v-for="w in weightStore.weightBrackets"
+                    :key="w.id">
+                        <td></td>
+                        <td class="text-left">{{ w.weight }} lb(s)</td>
+                        <td class="text-left">${{ w.cost }}</td>
+                        <td>
+                            <v-btn variant="outlined" @click="removeWeight(w.id)
+                            ; refresh()"
+                            >Remove</v-btn>
+                        </td>
                         <td></td>
                     </tr>
                     <tr class="trow">
-                        <td></td>
                         <td class="text-left">
                         Weight</td>
                         <td>
-                            <v-text-field
+                            <v-text-field v-model="weight"
                             class="new"></v-text-field>
                         </td>
                         <td class="text-left">
                         Cost</td>
                         <td>
-                            <v-text-field
+                            <v-text-field v-model="cost"
                             class="new"></v-text-field>
+                        </td>
+                        <td>
+                            <v-btn @click="insertNew(
+                                Number(weight), Number(cost)
+                            ); refresh()">Add</v-btn>
                         </td>
                     </tr>
                 </tbody>
@@ -41,6 +54,7 @@
 
 <script lang="ts">
 import { useWeightStore } from '@/stores/weightStore';
+import authenticationService from '@/services/authenticationService'
 
 export default{
     setup(){
@@ -48,6 +62,28 @@ export default{
         weightStore.fill();
 
         return { weightStore }
+    },
+    data(){
+        return{
+            weight: '',
+            cost: ''
+        }
+    },
+    methods: {
+        async insertNew(w: Number, c: Number){
+            const newInsert = await authenticationService.insertWeight({
+                weight: w,
+                cost: c
+            })
+        },
+        refresh(){
+            setTimeout(function() {
+                location.reload()
+            }, 3000)
+        },
+        async removeWeight(rid:Number){
+            const rmWeight = await authenticationService.removeWeight({id: rid})
+        }
     }
 }
 </script>
@@ -55,7 +91,7 @@ export default{
 <style scoped>
     .new{
         height: 50px;
-        width: 60px;
+        width: 90px;
     }
     .trow{
         height: 70px;
