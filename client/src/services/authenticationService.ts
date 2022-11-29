@@ -36,8 +36,11 @@ export default {
     getOrders(){
         return axiosApi().get('getOrders');
     },
-    completeOrder(){
-        return axiosApi().post('completeOrder');
+    completeOrder(completed: CompleteOrder){
+        return axiosApi().post('completeOrder', completed);
+    },
+    getOrderProduct(){
+        return axiosApi().get('getOrderProduct')
     }
 }
 
@@ -57,4 +60,9 @@ interface orderProduct{
     customer_address: string,
     total_amount: Number,
     total_weight: Number,
+}
+
+interface CompleteOrder{
+    id: Number,
+    status: string
 }

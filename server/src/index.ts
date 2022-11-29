@@ -136,6 +136,16 @@ app.post('/completeOrder', async(req, res) => {
   }
 })
 
+app.get('/getOrderProduct', async(req, res) => {
+  try{
+    const orderPord = await internalDB.order_Product.findMany();
+    res.send(orderPord);
+  }
+  catch(error){
+    res.send(error);
+  }
+})
+
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`listening on port ${port}`),
 );

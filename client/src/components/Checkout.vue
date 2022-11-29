@@ -64,6 +64,20 @@
                             <v-list class="text-left">${{ cartStore.grandTotal }}</v-list>
                         </v-col>
                     </v-row>
+                    <v-row>
+                        <v-dialog v-model="dialog" persistent>
+                            <v-card>
+                                <v-card-title>
+                                    {{ text }}
+                                </v-card-title>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn text @click="dialog = false; cartStore.clearCart"
+                                    >OK</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                    </v-row>
                 <v-card-text></v-card-text>
                 <v-btn variant="outlined"
                 @click="submit()"
@@ -96,7 +110,10 @@ export default{
             cust_email: '',
             ccNumber: '',
             ccName: '',
-            ccExpDate: ''
+            ccExpDate: '',
+            dialog: false,
+            text: '',
+            orderNumber: Number(0)
         }
     },
     methods: {
@@ -125,6 +142,9 @@ export default{
                             total_weight: this.cartStore.weight,
                             shopping_cart: this.cartStore.cart
                         })
+                            .then(async (response) => {
+                                console.log(response.data)
+                            })
                     }
                 })
         }

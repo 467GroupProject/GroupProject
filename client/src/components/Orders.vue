@@ -14,7 +14,7 @@
                         <td>{{ o.id }}</td>
                         <td>${{ o.total_amount }}</td>
                         <td>{{ o.total_weight }} lb(s)</td>
-                        <td><v-btn>Complete Order</v-btn></td>
+                        <td><v-btn @click="onClick(o.id)">Complete Order</v-btn></td>
                     </tr>
                 </tbody>
             </v-table>
@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import { useOrderStore } from '@/stores/orderStore';
+import authenticationServie from '@/services/authenticationService'
 export default{
     setup() {
         const orderStore = useOrderStore();
@@ -33,9 +34,23 @@ export default{
         return { orderStore };
     },
     methods: {
-        onClick(){
-            
+        async onClick(pid: Number){
+            await(authenticationServie.completeOrder({
+                    id: pid,
+                    status: 'closed'
+                })
+            )
         }
+    },
+    data() {
+        return{
+            orderProd: []
+        }
+    },
+    mounted() {
+        authenticationServie.getOrderProduct()
+            .then(response => (this.orderProd = response.data))
+            .catch(error => console.log(error))
     }
 }
 </script>

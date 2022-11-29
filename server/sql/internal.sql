@@ -36,8 +36,8 @@ CREATE TABLE `Order_Product` (
     `product_id`    INT NOT NULL,
     `quantity`      INT NOT NULL,
     PRIMARY KEY (`order_id`, `product_id`),
-    FOREIGN KEY (`order_id`) REFERENCES `orders`(`id`),
-    FOREIGN KEY (`product_id`) REFERENCES `inventory`(`id`)
+    FOREIGN KEY (`order_id`) REFERENCES `Orders`(`id`),
+    FOREIGN KEY (`product_id`) REFERENCES `Inventory`(`id`)
 );
 
 CREATE TABLE `User` (
