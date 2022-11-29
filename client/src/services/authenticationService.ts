@@ -21,9 +21,6 @@ export default {
     inventory(){
         return axiosApi().get('iventory');
     },
-    processCC(){
-        return axiosApi().post('http://blitz.cs.niu.edu/creditcard');
-    },
     register(credentials: Credentials){
         return axiosApi().post('register', credentials);
     },
@@ -35,6 +32,15 @@ export default {
     },
     weights(){
         return axiosApi().get('weight');
+    },
+    getOrders(){
+        return axiosApi().get('getOrders');
+    },
+    completeOrder(completed: CompleteOrder){
+        return axiosApi().post('completeOrder', completed);
+    },
+    getOrderProduct(){
+        return axiosApi().get('getOrderProduct')
     }
 }
 
@@ -54,4 +60,9 @@ interface orderProduct{
     customer_address: string,
     total_amount: Number,
     total_weight: Number,
+}
+
+interface CompleteOrder{
+    id: Number,
+    status: string
 }

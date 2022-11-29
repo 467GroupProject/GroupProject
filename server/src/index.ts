@@ -7,6 +7,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { PrismaClient as PrismaInternal } from '../prisma/generated/internal';
 import { PrismaClient as PrismaLegacy } from '../prisma/generated/legacy';
+import { resolve } from 'path';
 
 const app = express();
 const port: number = 3000;
@@ -56,16 +57,25 @@ app.post('/orders', async(req, res) => {
       }
     })
     res.send(orders)
+    try{
+      for(const x in req.body.shopping_cart)
+      {
+        const orderProd = await internalDB.order_Product.create({
+          data: {
+            order_id: orders.id,
+            product_id: req.body.shopping_cart[x].id,
+            quantity: req.body.shopping_cart[x].quantity
+          }
+        })
+      }
+    }
+    catch(error){
+      res.send(error)
+    }
   }
   catch(error){
     res.send(error);
   }
-})
-
-app.post('/register', async(req, res) => {
-  res.send({
-    message: `Hello ${req.body.email} ${req.body.password} ${req.body.status}`
-  })
 })
 
 app.post('/update', async(req, res) => {
@@ -89,6 +99,47 @@ app.get('/weight', async(req, res) => {
   try{
     const weightBracket = await internalDB.weight.findMany();
     res.send(weightBracket);
+  }
+  catch(error){
+    res.send(error);
+  }
+})
+
+app.get('/getOrders', async(req, res) => {
+  try{
+    const orders = await internalDB.orders.findMany({
+      where: {
+        status: "open"
+      }
+    })
+    res.send(orders);
+  }
+  catch(error){
+    res.send(error);
+  }
+})
+
+app.post('/completeOrder', async(req, res) => {
+  try{
+    const statusChange = await internalDB.orders.update({
+      where: {
+        id: req.body.id
+      },
+      data: {
+        status: req.body.status
+      }
+    })
+    res.send(statusChange);
+  }
+  catch(error){
+    res.send(error);
+  }
+})
+
+app.get('/getOrderProduct', async(req, res) => {
+  try{
+    const orderPord = await internalDB.order_Product.findMany();
+    res.send(orderPord);
   }
   catch(error){
     res.send(error);
