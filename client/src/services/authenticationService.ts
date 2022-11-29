@@ -36,11 +36,17 @@ export default {
     getOrders(){
         return axiosApi().get('getOrders');
     },
-    completeOrder(completed: CompleteOrder){
+    completeOrder(completed: completeOrder){
         return axiosApi().post('completeOrder', completed);
     },
     getOrderProduct(){
         return axiosApi().get('getOrderProduct')
+    },
+    removeWeight(removeW: removeWeight){
+        return axiosApi().post('removeWeight', removeW);
+    },
+    insertWeight(nWght: newWeight){
+        return axiosApi().post('insertWeight', nWght);
     }
 }
 
@@ -62,7 +68,16 @@ interface orderProduct{
     total_weight: Number,
 }
 
-interface CompleteOrder{
+interface completeOrder{
     id: Number,
     status: string
+}
+
+interface newWeight {
+    weight: Number,
+    cost: Number
+}
+
+interface removeWeight {
+    id: Number
 }
