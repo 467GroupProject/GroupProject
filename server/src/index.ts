@@ -7,6 +7,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { PrismaClient as PrismaInternal } from '../prisma/generated/internal';
 import { PrismaClient as PrismaLegacy } from '../prisma/generated/legacy';
+import { resolve } from 'path';
 
 const app = express();
 const port: number = 3000;
@@ -98,6 +99,37 @@ app.get('/weight', async(req, res) => {
   try{
     const weightBracket = await internalDB.weight.findMany();
     res.send(weightBracket);
+  }
+  catch(error){
+    res.send(error);
+  }
+})
+
+app.get('/getOrders', async(req, res) => {
+  try{
+    const orders = await internalDB.orders.findMany({
+      where: {
+        status: "open"
+      }
+    })
+    res.send(orders);
+  }
+  catch(error){
+    res.send(error);
+  }
+})
+
+app.post('/completeOrder', async(req, res) => {
+  try{
+    const statusChange = await internalDB.orders.update({
+      where: {
+        id: req.body.id
+      },
+      data: {
+        status: req.body.status
+      }
+    })
+    res.send(statusChange);
   }
   catch(error){
     res.send(error);

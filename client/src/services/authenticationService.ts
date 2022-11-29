@@ -32,6 +32,12 @@ export default {
     },
     weights(){
         return axiosApi().get('weight');
+    },
+    getOrders(){
+        return axiosApi().get('getOrders');
+    },
+    completeOrder(){
+        return axiosApi().post('completeOrder');
     }
 }
 

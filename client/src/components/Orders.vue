@@ -1,17 +1,47 @@
 <template>
     <v-container fluid class="text-center">
-        <v-text-field variant="outlined" class="Search"
-        v-model="search" label="Search"></v-text-field>
+        <v-card>
+            <v-card-title>List of Open Orders</v-card-title>
+            <v-table>
+                <tbody>
+                    <tr>
+                        <td>Order Number</td>
+                        <td>Total Amount</td>
+                        <td>Total Weight</td>
+                        <td></td>
+                    </tr>
+                    <tr v-for="o in orderStore.openOrders" key="o.id">
+                        <td>{{ o.id }}</td>
+                        <td>${{ o.total_amount }}</td>
+                        <td>{{ o.total_weight }} lb(s)</td>
+                        <td><v-btn>Complete Order</v-btn></td>
+                    </tr>
+                </tbody>
+            </v-table>
+        </v-card>
     </v-container>
     
 </template>
 
 <script lang="ts">
+import { useOrderStore } from '@/stores/orderStore';
 export default{
-    data(){
-        return{
-            search: ''
+    setup() {
+        const orderStore = useOrderStore();
+        orderStore.fill();
+
+        return { orderStore };
+    },
+    methods: {
+        onClick(){
+            
         }
     }
 }
 </script>
+
+<style scoped>
+tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, .05)
+}
+</style>
