@@ -119,7 +119,7 @@ export const useCartStore = defineStore('cart', {
                 let pWeight: number = productStore.productList[index].weight;
                 totalWeight += pWeight * this.cart[x].quantity
             }
-            return totalWeight;
+            return Number(totalWeight.toFixed(2));
         },
         /**
          * Calculate shipping cost based on weight of all products in shipping cart.
@@ -136,7 +136,7 @@ export const useCartStore = defineStore('cart', {
                     shippingCost = weightStore.weightBrackets[x].cost;
                 }
             }
-            return shippingCost;
+            return Number(shippingCost.toFixed(2));
         }
     }
 })
