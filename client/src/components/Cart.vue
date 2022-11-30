@@ -72,7 +72,7 @@
         <v-row>
             <v-col></v-col>
             <v-col>
-                <v-card elevation="10">
+                <v-card elevation="10" v-if="cartStore.cart.length > 0">
                     <v-card-text></v-card-text>
                     <v-card-title>Total</v-card-title>
                     <v-row>
@@ -90,7 +90,7 @@
                         </v-col>
                     </v-row>
                 </v-card>
-                <v-card class="text-right">
+                <v-card class="text-right" v-if="cartStore.cart.length > 0">
                     <RouterLink to="/checkout" class="text-decoration-none">
                     <v-btn class="mx-10" 
                     elevation="2" x-large rounded>
