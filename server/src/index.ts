@@ -105,6 +105,16 @@ app.get('/weight', async(req, res) => {
   }
 })
 
+app.get('/getAllOrders', async(req, res) => {
+  try{
+    const orders = await internalDB.orders.findMany();
+    res.send(orders);
+  }
+  catch(error){
+    res.send(error);
+  }
+})
+
 app.get('/getOrders', async(req, res) => {
   try{
     const orders = await internalDB.orders.findMany({

@@ -4,11 +4,13 @@ import { useStorage } from "@vueuse/core";
 
 export const useOrderStore = defineStore('orders', {
     state: () => ({
-        openOrders: useStorage('openOrders', [] as Orders[])
+        openOrders: useStorage('openOrders', [] as Orders[]),
+        allOrders: useStorage('allOrders', [] as Orders[]),
     }),
     actions: {
         async fill(){
-            this.openOrders = (await authenticationService.getOrders()).data
+            this.openOrders = (await authenticationService.getOrders()).data;
+            this.allOrders = (await authenticationService.getAllOrders()).data;
         }
     }
 })
