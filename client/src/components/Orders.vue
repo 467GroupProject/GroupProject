@@ -171,7 +171,7 @@
 
 <script lang="ts">
 import { useOrderStore } from '@/stores/orderStore';
-import authenticationServie from '@/services/authenticationService'
+import authenticationServie from '@/services/authenticationService';
 export default{
     setup() {
         const orderStore = useOrderStore();
