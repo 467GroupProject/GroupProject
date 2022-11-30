@@ -13,7 +13,7 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr class="trow" v-for="w in weightStore.weightBrackets"
+                    <tr class="trow" v-for="w in sortByWeight"
                     :key="w.id">
                         <td></td>
                         <td class="text-left">{{ w.weight }} lb(s)</td>
@@ -83,6 +83,12 @@ export default{
         },
         async removeWeight(rid:Number){
             const rmWeight = await authenticationService.removeWeight({id: rid})
+        }
+    },
+    computed: {
+        sortByWeight: function(){
+            return this.weightStore.weightBrackets.sort((a, b) =>
+            a.weight - b.weight)
         }
     }
 }
