@@ -46,7 +46,6 @@ app.get('/iventory', async(req, res) => {
 });
 
 app.post('/orders', async(req, res) => {
-  try{
     const orders = await internalDB.orders.create({
       data: {
         customer_name: req.body.customer_name,
@@ -57,7 +56,6 @@ app.post('/orders', async(req, res) => {
       }
     })
     res.send(orders)
-    try{
       for(const x in req.body.shopping_cart)
       {
         const orderProd = await internalDB.order_Product.create({
@@ -68,14 +66,6 @@ app.post('/orders', async(req, res) => {
           }
         })
       }
-    }
-    catch(error){
-      res.send(error)
-    }
-  }
-  catch(error){
-    res.send(error);
-  }
 })
 
 app.post('/update', async(req, res) => {
