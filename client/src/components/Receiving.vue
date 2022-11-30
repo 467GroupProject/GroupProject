@@ -30,12 +30,17 @@
                     </td>
                     <td class="text-left">
                         <v-btn @click="update(p.number,
-                        (productStore.iventoryList[i].quantity + Number(quantity)))">
+                        (productStore.iventoryList[i].quantity + Number(quantity))); snackbar=true;
+                        text = `${(productStore.iventoryList[i].quantity + Number(quantity))} ${p.description} added to Inventory`;
+                        quantity=0">
                         Add</v-btn>
                     </td>
                 </tr>
             </tbody>
         </v-table>
+        <v-snackbar v-model="snackbar" :multi-line="multiline" color="green">
+            {{ text }}
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -52,7 +57,10 @@ export default{
     },
     data(){
         return{
-            search: ''
+            search: '',
+            snackbar: false,
+            multiline: true,
+            text: ''
         }
 
     },

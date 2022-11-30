@@ -121,11 +121,6 @@ export default{
         },
         addedToCart(q: Number, item: any){
             this.text = `${q} ${item} Added to Cart`
-        },
-        refresh(){
-            setTimeout(function() {
-                location.reload()
-            }, 3000)
         }
     },
     beforeMount(){
