@@ -1,6 +1,4 @@
 <template>
-
-    <p>{{inventory_list}}</p>
     <v-container fluid class="text-center">
         <v-row>
             <v-col>
