@@ -97,7 +97,6 @@
                     <font-awesome-icon icon="fa-solid fa-cash-register" />
                     &nbsp;Checkout</v-btn>
                     </RouterLink>
-                    <v-card-text></v-card-text>
                 </v-card>
             </v-col>
         </v-row>

@@ -81,8 +81,12 @@
                                 <v-card-text></v-card-text>
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn text @click="dialog = false; clear()"
-                                    >OK</v-btn>
+                                    <RouterLink to="/" class="text-decoration-none">
+                                        <v-btn @click="dialog = false; clear()">Home</v-btn>
+                                    </RouterLink>
+                                    <RouterLink to="/products" class="text-decoration-none">
+                                        <v-btn @click="dialog = false; clear()">Back to Products</v-btn>
+                                    </RouterLink>
                                 </v-card-actions>
                             </v-card>
                         </v-dialog>
@@ -134,7 +138,7 @@ export default{
                 cc: this.ccNumber,
                 name: this.ccName,
                 exp: this.ccExpDate,
-                amount: this.cartStore.total
+                amount: this.cartStore.grandTotal
             }
             const blitz = axios.post('http://blitz.cs.niu.edu/creditcard', transaction)
                 .then(async (response) => {
@@ -148,7 +152,7 @@ export default{
                             customer_name: this.cust_name,
                             customer_address: this.cust_address,
                             customer_email: this.cust_email,
-                            total_amount: this.cartStore.total,
+                            total_amount: this.cartStore.grandTotal,
                             total_weight: this.cartStore.weight,
                             shopping_cart: this.cartStore.cart
                         })
