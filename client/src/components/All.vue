@@ -16,7 +16,7 @@
                         <td>{{ o.id }}</td>
                         <td>${{ o.total_amount }}</td>
                         <td>{{ o.total_weight }} lb(s)</td>
-                        <td>{{ o.date }}</td>
+                        <td>{{ String(o.date).replace(/T|Z/gi, " ") }}</td>
                         <td>{{ o.status }}</td>
                         <td><v-btn @click="onClick(o)">Details</v-btn></td>
                     </tr>
@@ -32,7 +32,7 @@
                         <text style="padding: 25px"><b>Email:</b> {{currentOrder.customer_email}}</text><br>
                         <text style="padding: 25px"><b>Address:</b> {{currentOrder.customer_address}}</text><br>
                         <text style="padding: 25px"><b>Status:</b> {{currentOrder.status}}</text><br>
-                        <text style="padding: 25px"><b>Date of purchase:</b> {{currentOrder.date}}</text><br>
+                        <text style="padding: 25px"><b>Date of purchase:</b> {{ String(currentOrder.date).replace(/T|Z/gi, " ") }}</text><br>
                     </v-card>
                 </v-container>
                 <v-container class="d-flex justify-space-around">
