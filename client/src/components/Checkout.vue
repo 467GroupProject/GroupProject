@@ -77,7 +77,6 @@
                                 <v-card-text>
                                     {{ subtitle }}
                                 </v-card-text>
-                                <v-card-text></v-card-text>
                                 <v-card-text>Thank You For Shopping With Us</v-card-text>
                                 <v-card-text></v-card-text>
                                 <v-card-actions>
@@ -137,7 +136,7 @@ export default{
                 exp: this.ccExpDate,
                 amount: this.cartStore.total
             }
-            const response = axios.post('http://blitz.cs.niu.edu/creditcard', transaction)
+            const blitz = axios.post('http://blitz.cs.niu.edu/creditcard', transaction)
                 .then(async (response) => {
                     if(response.status == 400)
                     {
@@ -154,11 +153,12 @@ export default{
                             shopping_cart: this.cartStore.cart
                         })
                             .then(async (response) => {
-                                this.text = `Confirmation: ${response.data.id} created`
-                                this.subtext = `Amount: ${response.data.amount}, Auth: ${response.data.auth}`
-                                this.subtitle = `For: ${response.data.name}, at ${response.data.email}`
+                                this.text = `Confirmation: Order number ${response.data.id} created`
+
                             })
                     }
+                    this.subtext = `Amount: $${response.data.amount}, Auth: ${response.data.authorization}`
+                    this.subtitle = `For: ${this.cust_name}, at ${this.cust_email}`
                 })
                 this.dialog=true;
         },
