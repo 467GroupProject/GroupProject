@@ -37,10 +37,11 @@
                 </v-container>
                 <v-container class="d-flex justify-space-around">
                     <v-card style="padding: 2%" width="90%">
-                        <text style="padding: 25px"><b>Payment Details</b></text><br>
-                        <text style="padding: 25px">Subtotal: </text><br>
-                        <text style="padding: 25px">Shipping: </text><br>
-                        <text style="padding: 25px">Total Cost: </text><br>
+                        <text style="padding: 25px"><b><u>Payment Details</u></b></text><br/><br/>
+                        <text style="padding: 25px">Subtotal: ${{(currentOrder.total_amount - curr_shipping_brack.cost).toFixed(2)}}</text><br/>
+                        <text style="padding: 25px">Shipping: ${{(curr_shipping_brack.cost * 1).toFixed(2)}}</text><br/>
+                        <text style="padding: 25px"><i>Order weight >= {{curr_shipping_brack.weight}}lbs</i></text><br/>
+                        <text style="padding: 25px"><b>Total: ${{(currentOrder.total_amount * 1).toFixed(2)}}</b></text><br/>
                     </v-card>
                 </v-container>
                 <label v-for="orderProduct in orderProd">
@@ -85,12 +86,37 @@ export default{
         async onClick(order){
             this.dialog = true;
             this.currentOrder = order;
+            this.curr_shipping_brack = null;
+
+            //find shipping brack for clicked order
+            //cant assume that weight brackets will iterate in increasing order. 
+            //Looking for maxiumum cost applicable where order weight > bracket minimum
+            for (let brack of this.weights){
+                //check every bracket
+
+                if (parseFloat(this.currentOrder.total_weight) >= parseFloat(brack.weight)){
+                    //thus, we know that order weight falls within bracket minimum
+
+                    if( this.curr_shipping_brack == null){
+                        //if no brack yet, take the first one it qualifies for,
+                        this.curr_shipping_brack = brack;
+
+                    }else{ //else, only replace curr_shipping_brack...
+                        if( parseFloat(brack.cost) >= parseFloat(this.curr_shipping_brack.cost)){
+                            // if brack.cost >= curr_shipping_brack.cost
+                            this.curr_shipping_brack = brack;
+                        }
+                    }
+                }
+            }
         }
     },
     data() {
         return{
             orderProd: [],
             products: [],
+            weights: [],
+            curr_shipping_brack: null,
 
             productsFromOrder: [],
 
@@ -105,6 +131,10 @@ export default{
 
         authenticationServie.product()
             .then(response => (this.products = response.data))
+            .catch(error => console.log(error))
+
+        authenticationServie.weights()
+            .then(response => (this.weights = response.data))
             .catch(error => console.log(error))
     }
 }

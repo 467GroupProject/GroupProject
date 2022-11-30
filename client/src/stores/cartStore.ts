@@ -36,7 +36,7 @@ export const useCartStore = defineStore('cart', {
             const i = this.cart.findIndex(s => s.id == cart.id)
             // if product is already in cart, update quantity
             if(i > -1){
-                this.cart[i].quantity += 1
+                this.cart[i].quantity += cart.quantity
             // else put product into cart
             } else {
                 this.cart.push(cart)
