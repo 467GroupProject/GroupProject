@@ -1,7 +1,5 @@
 <template>
     <v-container fluid class="text-center">
-        <v-card>{{orderProd}}</v-card><br><br>
-        <v-card>{{currentOrder}}</v-card>
         <v-card>
             <v-card-title>List of All Orders</v-card-title>
             <v-table>
@@ -25,17 +23,47 @@
                 </tbody>
             </v-table>
         </v-card>
-        <v-dialog v-model="dialog" width="75%">
+        <v-dialog v-model="dialog" width="50%">
             <v-card>
-                <v-card-text>Product List</v-card-text>
-                <v-div v-for="product in orderProd">
-                    <v-div v-if="product.order_id == currentOrder.id">
-                        <v-card-text>{{ product.product_id }}</v-card-text>
-                    </v-div>
-                </v-div>
-                <v-card-actions>
-                    <v-btn color="primary" block @click="dialog = false">Close Dialog</v-btn>
-                </v-card-actions>
+                <v-container class="d-flex justify-space-around">
+                    <v-card style="padding: 2%" width="90%">
+                        <v-card-title class="text-center"><b><u>Order {{currentOrder.id}} Details</u></b></v-card-title>
+                        <text style="padding: 25px"><b>Name:</b> {{currentOrder.customer_name}}</text><br>
+                        <text style="padding: 25px"><b>Email:</b> {{currentOrder.customer_email}}</text><br>
+                        <text style="padding: 25px"><b>Address:</b> {{currentOrder.customer_address}}</text><br>
+                        <text style="padding: 25px"><b>Status:</b> {{currentOrder.status}}</text><br>
+                        <text style="padding: 25px"><b>Date of purchase:</b> {{currentOrder.date}}</text><br>
+                    </v-card>
+                </v-container>
+                <v-container class="d-flex justify-space-around">
+                    <v-card style="padding: 2%" width="90%">
+                        <text style="padding: 25px"><b>Payment Details</b></text><br>
+                        <text style="padding: 25px">Subtotal: </text><br>
+                        <text style="padding: 25px">Shipping: </text><br>
+                        <text style="padding: 25px">Total Cost: </text><br>
+                    </v-card>
+                </v-container>
+                <label v-for="orderProduct in orderProd">
+                    <label v-for="product in products">
+                        <label v-if="orderProduct.order_id == currentOrder.id">
+                            <v-container v-if="product.number == orderProduct.product_id" class="d-flex justify-space-around">
+                                <v-card style="padding: 2%" width="90%">
+                                    <text class="text-left" style="padding: 25px"><b>Product: </b>{{ product.description }}</text><br>
+                                    <text class="text-center" style="padding: 25px"><b>Quantity: </b>{{orderProduct.quantity}}</text><br>
+                                    <text class="text-center" style="padding: 25px"><b>Weight: </b>{{(orderProduct.quantity * product.weight).toFixed(2)}}lb indv.</text><br>
+                                    <text class="text-center" style="padding: 25px"><b>Cost: </b>${{(orderProduct.quantity * product.price).toFixed(2)}}</text>
+                                    <v-img class="right" :src="product.pictureURL" max-height="100px"></v-img>
+                                </v-card>
+                            </v-container>
+                        </label>
+                    </label>
+                </label>
+
+                <v-container class="d-flex justify-space-around">
+                    <v-card-actions>
+                        <v-btn color="primary" block @click="dialog = false">Close</v-btn>
+                    </v-card-actions>
+                </v-container>
             </v-card>
         </v-dialog>
     </v-container>
@@ -62,6 +90,10 @@ export default{
     data() {
         return{
             orderProd: [],
+            products: [],
+
+            productsFromOrder: [],
+
             currentOrder: null,
             dialog: false,
         }
@@ -69,6 +101,10 @@ export default{
     mounted() {
         authenticationServie.getOrderProduct()
             .then(response => (this.orderProd = response.data))
+            .catch(error => console.log(error))
+
+        authenticationServie.product()
+            .then(response => (this.products = response.data))
             .catch(error => console.log(error))
     }
 }

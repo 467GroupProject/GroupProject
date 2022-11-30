@@ -6,13 +6,11 @@ export const useOrderStore = defineStore('orders', {
     state: () => ({
         openOrders: useStorage('openOrders', [] as Orders[]),
         allOrders: useStorage('allOrders', [] as Orders[]),
-//        orderProducts: userStorage('orderProducts', [] as OrderProducts[]),
     }),
     actions: {
         async fill(){
             this.openOrders = (await authenticationService.getOrders()).data;
             this.allOrders = (await authenticationService.getAllOrders()).data;
-//            this.orderProducts = (await authenticationService.getOrderProducts()).data;
         }
     }
 })
