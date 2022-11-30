@@ -82,8 +82,8 @@ for i in range(0, len(lines)):
     l = l.replace('<n>', cus[0])
     l = l.replace('<e>', cus[1])
     l = l.replace('<a>', cus[2])
-    l = l.replace('<t>', '1')
-    l = l.replace('<w>', '1')
+    #l = l.replace('<t>', '1')
+    #l = l.replace('<w>', '1')
     l = l.replace('<s>', status)
     l = l.replace('<d>', str(random_day))
     ##debug
@@ -115,18 +115,52 @@ for i in range(0, len(prods_raw)):
     if (i==0):
         continue
     l = prods_raw[i]
+    l = l.strip()
     l = l.split(",")
     id = l[0]
     #print(str(l))
     #print(str(id))
     prod_ids.append(str(id))
 
-print(prod_ids)
+#print(prod_ids)
+
+file6 = open("external_dump.log", "r")
+ext_raw = file6.readlines()
+file6.close()
+ext_parse = []
+for l in ext_raw:
+    l = l.strip()
+    l = l.split(",")
+    #[id,desc,cost,weight,url]
+    ext_parse.append(l)
+
+for l in ext_parse:
+    print(str(l))
+
+
+
 
 #get template for order_product table file
 file3 = open("order_product_gen_input.csv", "r")
 input = file3.readlines()
 file3.close()
+
+file2 = open("orders.csv", "r")
+order_list_raw = file2.readlines()
+file2.close()
+
+file7 = open("weight.csv", "r")
+weights_raw = file7.readlines()
+weights_raw.pop(0)
+weights_parse = []
+for l in weights_raw:
+    l = l.strip()
+    l = l.split(",")
+    #[id, weight, cost]
+    print(str(l))
+    weights_parse.append(l)
+
+
 
 #grab template line from input csv
 l = input[1]
@@ -135,11 +169,16 @@ lines.append(input[0])
 
 #for each order
 for i in range(1, num_orders+1):
+
+    #i happens to be order_id and match order_list_raw index
     
     #determine how many products are purchased in each order
     choices = [1, 2, 3, 4 , 5, 6, 7, 8, 9, 15, 25]
     c_idx = random.randrange(0, len(choices))
     n = choices[c_idx]
+
+    subtotal_cost = 0
+    total_weight = 0
 
     print("generating ", str(n), " products for order ", str(i))
     
@@ -147,6 +186,7 @@ for i in range(1, num_orders+1):
 
     #while need to add more items to that order
     while n > 0:
+        print(str(n), "products left to add... subtotal is: ", str(subtotal_cost))
         #copy row template
         l_temp = l
 
@@ -172,11 +212,35 @@ for i in range(1, num_orders+1):
         #add to file list
         lines.append(l_temp)
 
+        #keep track of accumulative weight and cost of order (not including shipping)
+        for itm_leg in ext_parse:
+            if (str(itm_leg[0]) == str(prod_id)):
+                #print(str(itm_leg))
+                ##if external entry matches product
+                subtotal_cost += float(itm_leg[2]) * int(qty)
+                total_weight += float(itm_leg[3]) * int(qty)
+
         #mark an item added to order
         n -= 1
 
         ##debug
-        print(l_temp)
+        #print(l_temp)
+
+    #after adding all items, calculate shipping cost and store values in order row
+    #total_cost = subtotal_cost + shipping
+
+    shipping = 0
+    total_weight = round(total_weight, 2)
+    for w in weights_parse:
+        if total_weight >= float(w[1]):
+            shipping = float(w[2])
+    total_cost = round(subtotal_cost + shipping, 2)
+    order_list_raw[i] = order_list_raw[i].replace("<t>", str(total_cost))
+    order_list_raw[i] = order_list_raw[i].replace("<w>", str(total_weight))
+
+file2 = open("orders.csv", "w")
+file2.writelines(order_list_raw)
+file2.close()
 
 
 file5 = open("order_product.csv", "w")
