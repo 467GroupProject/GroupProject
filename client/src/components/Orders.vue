@@ -35,6 +35,12 @@
 </v-card>
 -->
 
+<!--
+<v-card>
+    <v-card-title>weights table</v-card-title>
+    {{weights}}
+</v-card>
+-->
 
     <v-container fluid class="text-center">
         <v-card>
@@ -79,13 +85,13 @@
                                                     <label v-for="item in products">
                                                         <label v-if="(item.number == product.product_id)">
 
-                                                            <v-container class="d-flex">
+                                                            <v-container class="d-flex my-n3">
 
-                                                                <v-card-text>
-                                                                    {{product.product_id}}- {{item.description}} x {{product.quantity}}
+                                                                <v-card-text class="mr-n7">
+                                                                    #{{product.product_id}} - {{item.description}} x {{product.quantity}}
                                                                 </v-card-text>
 
-                                                                <v-img :src="item.pictureURL" height="100px"/>
+                                                                <v-img class="ml-n7" :src="item.pictureURL" height="100px"/>
 
                                                             </v-container>
                                                             
@@ -109,7 +115,7 @@
                                                     <label v-if="product.order_id == curr_order.id">
                                                         <label v-for="item in products">
 
-                                                            <v-container v-if="(item.number == product.product_id)" class="d-flex justify-space-between align-center">
+                                                            <v-container v-if="(item.number == product.product_id)" class="d-flex justify-space-between align-center mt-n6">
 
                                                                 <text>{{item.description}} -- ({{product.quantity}} x ${{item.price.toFixed(2)}}):</text>
                                                                 <text>${{(Math.floor(((item.price * product.quantity) * 100))/100.00).toFixed(2)}}</text>
@@ -120,11 +126,12 @@
                                             </label>
 
                                     </v-card>
-                                    <br/>
-                                    <v-card>
-                                                <v-card-text>Subtotal: {{curr_order.total_amount}}</v-card-text>
-                                                <v-card-text>Shipping:</v-card-text>
-                                                <v-card-text><b>Total:</b></v-card-text>
+                                    <v-card cass="my-1">
+                                                <v-card-text class="mb-n5">Subtotal: ${{(curr_order.total_amount - curr_shipping_brack.cost).toFixed(2)}}</v-card-text>
+                                                <v-card-text class="mb-n8">Shipping: ${{(curr_shipping_brack.cost * 1).toFixed(2)}}</v-card-text>
+                                                <v-card-text class="mb-n3"><i>Order weight >= {{curr_shipping_brack.weight}}lbs</i></v-card-text>
+                                                <v-card-text class="mb-n5"><b>Total: ${{(curr_order.total_amount * 1).toFixed(2)}}</b></v-card-text>
+                                                <br/>
                                     </v-card>
                             </div>
                             <br/><br/><br/>
@@ -137,7 +144,7 @@
                                                     {{curr_order.customer_name}}<br/>
                                                     {{curr_order.customer_address}}<br/>
                                                     <br/>
-                                                    Confirmation email will be sent to {{curr_order.customer_email}}
+                                                    Confirmation email will be sent to: {{curr_order.customer_email}}
                                                 </p>
                                             </v-container>
                                         </v-card>
@@ -173,9 +180,35 @@ export default{
         return { orderStore };
     },
     methods: {
-        async onClick(order){
-            this.close_confirmation_popup = true;
+        onClick(order){
+            
             this.curr_order = order;
+            this.curr_shipping_brack = null;
+
+            //find shipping brack for clicked order
+            //cant assume that weight brackets will iterate in increasing order. 
+            //Looking for maxiumum cost applicable where order weight > bracket minimum
+            for (let brack of this.weights){
+                //check every bracket
+
+                if (parseFloat(this.curr_order.total_weight) >= parseFloat(brack.weight)){
+                    //thus, we know that order weight falls within bracket minimum
+
+                    if( this.curr_shipping_brack == null){
+                        //if no brack yet, take the first one it qualifies for,
+                        this.curr_shipping_brack = brack;
+
+                    }else{ //else, only replace curr_shipping_brack...
+                        if( parseFloat(brack.cost) >= parseFloat(this.curr_shipping_brack.cost)){
+                            // if brack.cost >= curr_shipping_brack.cost
+                            this.curr_shipping_brack = brack;
+                        }
+                    }
+                }
+            }
+
+            this.close_confirmation_popup = true;
+
         },
         close_order(order){
 
@@ -208,9 +241,11 @@ export default{
             orderProd: [],
             products: [],
             inventory_list: [],
+            weights: [],
             close_confirmation_popup: false,
             test_dialog2: false,
             curr_order: null,
+            curr_shipping_brack: null,
         }
     },
     mounted() {
@@ -224,6 +259,10 @@ export default{
         
         authenticationServie.inventory()
             .then(response => (this.inventory_list = response.data))
+            .catch(error => console.log(error))
+
+        authenticationServie.weights()
+            .then(response => (this.weights = response.data))
             .catch(error => console.log(error))
     }
 }
