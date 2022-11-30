@@ -7,15 +7,16 @@
         <v-row>
             <v-col v-for="(p, i) in searchProduct"
             :key="i" cols="4">
-                <v-card class="mx-auto" height="350px" variant="outlined">
+                <v-card class="mx-auto" height="400px" variant="outlined">
                 <v-img height="100px" :src="p.pictureURL"/>
                 <v-card-text class="text-h6 font-weight-black">{{ p.description }}</v-card-text>
-                <v-card-text>${{ p.price }}</v-card-text>
+                <v-card-text>{{ productStore.iventoryList[i].quantity }} available</v-card-text>
+                <v-card-text> <b>Price:</b> ${{ p.price }}</v-card-text>
+                <v-card-text><b>Running total: </b>${{ p.price * data[i]}}</v-card-text>
                 <section v-if="productStore.iventoryList[i].quantity == 0">
                     <v-badge content="Out of Stock" inline></v-badge>
                 </section>
                 <section v-else>
-                    <v-card-text>{{ productStore.iventoryList[i].quantity }} available</v-card-text>
                     <span>
                     <td>
                         <v-container class="d-flex justify-space-around">
