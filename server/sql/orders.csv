@@ -1,25 +1,25 @@
 id,customer_name,customer_email,customer_address,total_amount,total_weight,status,date
-1,Kenneth,Kenneth@name.email,3015 Pittsburgh Mills Blvd Tarentum PA 15084,1,1,open,2020-08-14
-2,Joshua,Joshua@name.email,121 Wakelon St Zebulon NE 27597,1,1,open,2020-11-20
-3,Anthony,Anthony@name.email,2724 W Deyoung St Marion IN 62959,1,1,open,2018-01-15
-4,Brian,Brian@name.email,107 Trosclair Ln Dulac LA 70353,1,1,closed,2020-09-19
-5,Jason,Jason@name.email,1545 Belcher Rd S Clearwater FL 33764,1,1,closed,2020-02-11
-6,William,William@name.email,17611 NE 70th St # 101 Redmond WA 98052,1,1,closed,2018-09-28
-7,Christopher,Christopher@name.email,58080 Twentynine Palms Hwy Yucca Valley CA 92284,1,1,closed,2018-10-18
-8,Kenneth,Kenneth@name.email,3015 Pittsburgh Mills Blvd Tarentum PA 15084,1,1,closed,2018-06-08
-9,Nicholas,Nicholas@name.email,3614 S 31st St Temple TX 76502,1,1,open,2019-10-16
-10,Edward,Edward@name.email,382 3rd Ave New York ND 10016,1,1,closed,2019-04-23
-11,Richard,Richard@name.email,200 N 15th St # 8 Corsicana TX 75110,1,1,open,2018-09-16
-12,Kevin,Kevin@name.email,598 Madison Ave New York City ND 10022,1,1,closed,2018-07-19
-13,Richard,Richard@name.email,200 N 15th St # 8 Corsicana TX 75110,1,1,open,2018-07-09
-14,Kevin,Kevin@name.email,598 Madison Ave New York City ND 10022,1,1,closed,2020-07-21
-15,Ryan,Ryan@name.email,215 Annis Rd South Amherst OH 44001,1,1,closed,2020-06-06
-16,James,James@name.email,37273 some road realtown KS 69274,1,1,closed,2020-02-05
-17,John,John@name.email,114 Henderson St Chapel Hill NE 27514,1,1,closed,2018-05-17
-18,Nicholas,Nicholas@name.email,3614 S 31st St Temple TX 76502,1,1,closed,2018-08-10
-19,Andrew,Andrew@name.email,2914 M St NW Washington DE 20007,1,1,closed,2020-03-14
-20,Andrew,Andrew@name.email,2914 M St NW Washington DE 20007,1,1,open,2020-12-16
-21,David,David@name.email,2801 Interstate 20 Hudson Oaks TX 76087,1,1,open,2020-06-11
-22,Christopher,Christopher@name.email,58080 Twentynine Palms Hwy Yucca Valley CA 92284,1,1,open,2020-06-17
-23,Anthony,Anthony@name.email,2724 W Deyoung St Marion IN 62959,1,1,open,2020-11-07
-24,Ryan,Ryan@name.email,215 Annis Rd South Amherst OH 44001,1,1,open,2019-11-25
+1,Kenneth,Kenneth@name.email,3015 Pittsburgh Mills Blvd Tarentum PA 15084,1948.72,98.75,closed,2020-11-25
+2,Edward,Edward@name.email,382 3rd Ave New York ND 10016,2340.44,185.6,closed,2020-10-29
+3,William,William@name.email,17611 NE 70th St # 101 Redmond WA 98052,11055.29,1057.61,closed,2020-05-20
+4,Donald,Donald@name.email,710 S Main St Mt Vernon OH 43050,1192.24,61.2,closed,2020-12-28
+5,Kenneth,Kenneth@name.email,3015 Pittsburgh Mills Blvd Tarentum PA 15084,1274.8,176.8,open,2019-04-24
+6,Joshua,Joshua@name.email,121 Wakelon St Zebulon NE 27597,3223.42,349.78,closed,2018-02-04
+7,Brian,Brian@name.email,107 Trosclair Ln Dulac LA 70353,2068.17,190.25,closed,2020-05-08
+8,Matthew,Matthew@name.email,750 Stanyan St San Francisco CA 94117,13482.88,1376.55,closed,2020-05-03
+9,Michael,Michael@name.email,12599 Grafton Rd Carleton MI 48117,992.37,146.0,open,2020-11-01
+10,Nicholas,Nicholas@name.email,3614 S 31st St Temple TX 76502,565.76,422.46,open,2018-02-01
+11,Charles,Charles@name.email,105 S Saginaw St Holly MI 48442,830.56,32.0,open,2018-03-05
+12,Paul,Paul@name.email,806 S Main St Columbia TN 38401,3158.03,60.75,open,2019-08-07
+13,James,James@name.email,37273 some road realtown KS 69274,3748.52,989.07,closed,2019-01-13
+14,Donald,Donald@name.email,710 S Main St Mt Vernon OH 43050,3056.52,257.3,closed,2018-03-15
+15,Christopher,Christopher@name.email,58080 Twentynine Palms Hwy Yucca Valley CA 92284,133.75,10.0,open,2019-06-07
+16,Nicholas,Nicholas@name.email,3614 S 31st St Temple TX 76502,1347.44,78.0,open,2019-01-22
+17,Jason,Jason@name.email,1545 Belcher Rd S Clearwater FL 33764,4107.03,180.95,closed,2018-02-19
+18,Joshua,Joshua@name.email,121 Wakelon St Zebulon NE 27597,9254.88,452.1,open,2019-04-25
+19,Jeffrey,Jeffrey@name.email,3229 Old Goldie Rd Oak Harbor WA 98277,1051.39,35.0,open,2020-01-13
+20,Donald,Donald@name.email,710 S Main St Mt Vernon OH 43050,3284.35,147.8,open,2018-03-09
+21,Eric,Eric@name.email,7590 Chippewa Rd Cleveland OH 44141,2425.22,157.0,closed,2018-10-26
+22,John,John@name.email,114 Henderson St Chapel Hill NE 27514,1445.53,69.5,open,2018-04-25
+23,Andrew,Andrew@name.email,2914 M St NW Washington DE 20007,1045.5,61.0,open,2019-04-18
+24,Donald,Donald@name.email,710 S Main St Mt Vernon OH 43050,8619.85,535.2,closed,2019-06-20
