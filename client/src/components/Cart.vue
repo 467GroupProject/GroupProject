@@ -61,10 +61,10 @@
                         </tbody>
                     </v-table>
                     <v-spacer></v-spacer>
-                        <v-btn variant="outlined"
-                        @click="cartStore.clearCart(); snackbar=true; text=`Cart Cleared`"
-                        ><font-awesome-icon icon="fa-solid fa-trash" />
-                        &nbsp;Clear Cart</v-btn>
+                    <h2 v-if="cartStore.cart.length == 0">Cart is empty, check out our Products page!</h2>
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="cartStore.cart.length > 0" variant="outlined" @click="cartStore.clearCart(); snackbar=true; text=`Cart Cleared`">
+                    <font-awesome-icon icon="fa-solid fa-trash" />&nbsp;Clear Cart</v-btn>
                     <v-card-text></v-card-text>
                 </v-card>
             </v-col>
