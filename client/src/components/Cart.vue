@@ -70,10 +70,10 @@
                         </tbody>
                     </v-table>
                     <v-spacer></v-spacer>
-                        <v-btn variant="outlined"
-                        @click="cartStore.clearCart(); snackbar=true; text=`Cart Cleared`"
-                        ><font-awesome-icon icon="fa-solid fa-trash" />
-                        &nbsp;Clear Cart</v-btn>
+                    <h2 v-if="cartStore.cart.length == 0">Cart is empty, check out our Products page!</h2>
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="cartStore.cart.length > 0" variant="outlined" @click="cartStore.clearCart(); snackbar=true; text=`Cart Cleared`">
+                    <font-awesome-icon icon="fa-solid fa-trash" />&nbsp;Clear Cart</v-btn>
                     <v-card-text></v-card-text>
                 </v-card>
             </v-col>
@@ -81,7 +81,7 @@
         <v-row>
             <v-col></v-col>
             <v-col>
-                <v-card elevation="10">
+                <v-card elevation="10" v-if="cartStore.cart.length > 0">
                     <v-card-text></v-card-text>
                     <v-card-title>Total</v-card-title>
                     <v-row>
@@ -99,14 +99,13 @@
                         </v-col>
                     </v-row>
                 </v-card>
-                <v-card class="text-right">
+                <v-card class="text-right" v-if="cartStore.cart.length > 0">
                     <RouterLink to="/checkout" class="text-decoration-none">
                     <v-btn class="mx-10" 
                     elevation="2" x-large rounded>
                     <font-awesome-icon icon="fa-solid fa-cash-register" />
                     &nbsp;Checkout</v-btn>
                     </RouterLink>
-                    <v-card-text></v-card-text>
                 </v-card>
             </v-col>
         </v-row>
