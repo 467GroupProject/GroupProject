@@ -8,5 +8,5 @@ Moses Mang
 Lucas Slinker  
 Jared Wilkinson  
 
-There are various README files in both the client and server folders on setting  
-up the project.Plese read through those to set up the website.
+There are various README files in both the client and server folders on setting up the project.  
+Please read through those to set up the website.
