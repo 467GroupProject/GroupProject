@@ -6,4 +6,7 @@ Instructor - Professor Raimund Ege
 Aaron Beck  
 Moses Mang  
 Lucas Slinker  
-Jared Wilkinson
+Jared Wilkinson  
+
+There are various README files in both the client and server folders on setting  
+up the project.Plese read through those to set up the website.
