@@ -48,6 +48,20 @@ app.get('/iventory', async(req, res) => {
 });
 
 /**
+ * JW
+ * Query internal database to get all users
+ */
+ app.get('/users', async(req, res) => {
+  try {
+    const allUsers = await internalDB.user.findMany();
+    res.send(allUsers);
+  }
+  catch(error){
+    res.send(error);
+  }
+});
+
+/**
  * Post to internal databse when a customer as made an order
  */
 app.post('/orders', async(req, res) => {

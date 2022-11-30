@@ -1,47 +1,5 @@
 <template>
 
-
-<!--<v-card>
-    <v-card-title>orderProd</v-card-title>
-    {{orderProd}}
-</v-card>
-<br/>
-<br/>
-<br/>
-<v-card>
-    <v-card-title>products</v-card-title>
-    {{products}}
-</v-card>
-<br/>
-<br/>
-<br/>
-<v-card>
-    <v-card-title>current order</v-card-title>
-    {{curr_order}}
-</v-card>
-
-<br/>
-<br/>
-<br/>
-
-
-<v-card>
-    <v-card-title>prods for specific order example</v-card-title>
-    <v-div v-for="prod in orderProd">
-        <v-card-text v-if="(prod.order_id == 16)">
-            {{prod}}
-        </v-card-text>
-    </v-div>
-</v-card>
--->
-
-<!--
-<v-card>
-    <v-card-title>weights table</v-card-title>
-    {{weights}}
-</v-card>
--->
-
     <v-container fluid class="text-center">
         <v-card>
             <v-card-title>List of Open Orders</v-card-title>

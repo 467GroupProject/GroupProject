@@ -22,6 +22,15 @@ export default {
         return axiosApi().get('iventory');
     },
     /**
+     * JW
+     * Axios function to get all users from internal database.
+     * 
+     * @returns All users from internal database.
+     */
+     users(){
+        return axiosApi().get('users');
+    },
+    /**
      * Axios function to update inventory of internal database
      * 
      * @param updateI The product and quantity to update.
