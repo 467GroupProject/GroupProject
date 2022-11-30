@@ -34,7 +34,9 @@ app.get('/products', async(req, res) => {
   }
 });
 
-// query internal database to get all inventory
+/**
+ * Query internal database to get all inventory
+ */
 app.get('/iventory', async(req, res) => {
   try {
     const allInventory = await internalDB.inventory.findMany();
@@ -45,6 +47,9 @@ app.get('/iventory', async(req, res) => {
   }
 });
 
+/**
+ * Post to internal databse when a customer as made an order
+ */
 app.post('/orders', async(req, res) => {
     const orders = await internalDB.orders.create({
       data: {
@@ -68,6 +73,9 @@ app.post('/orders', async(req, res) => {
       }
 })
 
+/**
+ * Post to internal database to update inventory.
+ */
 app.post('/update', async(req, res) => {
   try{
     const updateQty = await internalDB.inventory.update({
@@ -85,6 +93,9 @@ app.post('/update', async(req, res) => {
   }
 })
 
+/**
+ * Query internal database to get weight brackets.
+ */
 app.get('/weight', async(req, res) => {
   try{
     const weightBracket = await internalDB.weight.findMany();
@@ -95,6 +106,9 @@ app.get('/weight', async(req, res) => {
   }
 })
 
+/**
+ * Query internal database to get all orders.
+ */
 app.get('/getAllOrders', async(req, res) => {
   try{
     const orders = await internalDB.orders.findMany();
@@ -105,6 +119,9 @@ app.get('/getAllOrders', async(req, res) => {
   }
 })
 
+/**
+ * Query internal database to get all open orders.
+ */
 app.get('/getOrders', async(req, res) => {
   try{
     const orders = await internalDB.orders.findMany({
@@ -119,6 +136,9 @@ app.get('/getOrders', async(req, res) => {
   }
 })
 
+/**
+ * Post to internal database to mark order as closed/complete.
+ */
 app.post('/completeOrder', async(req, res) => {
   try{
     const statusChange = await internalDB.orders.update({
@@ -136,6 +156,9 @@ app.post('/completeOrder', async(req, res) => {
   }
 })
 
+/**
+ * Query internal database to get Order_Prodcut table.
+ */
 app.get('/getOrderProduct', async(req, res) => {
   try{
     const orderPord = await internalDB.order_Product.findMany();
@@ -146,6 +169,9 @@ app.get('/getOrderProduct', async(req, res) => {
   }
 })
 
+/**
+ * Post to internal database to remove weight bracket.
+ */
 app.post('/removeWeight', async(req, res) => {
   try{
     const remWeight = await internalDB.weight.delete({
@@ -160,6 +186,9 @@ app.post('/removeWeight', async(req, res) => {
   }
 })
 
+/**
+ * Post to internal database to insert new weight bracket.
+ */
 app.post('/insertWeight', async(req, res) => {
   try{
     const insert = await internalDB.weight.create({
@@ -175,6 +204,7 @@ app.post('/insertWeight', async(req, res) => {
   }
 })
 
+// Listening on port 3000
 const server = app.listen(process.env.PORT || port, () =>
   console.log(`listening on port ${port}`),
 );
