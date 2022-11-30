@@ -80,7 +80,7 @@ app.post('/orders', async(req, res) => {
         const orderProd = await internalDB.order_Product.create({
           data: {
             order_id: orders.id,
-            product_id: req.body.shopping_cart[x].id,
+            product_id: req.body.shopping_cart[x].id + 1,
             quantity: req.body.shopping_cart[x].quantity
           }
         })
