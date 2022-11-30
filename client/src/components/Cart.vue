@@ -1,4 +1,6 @@
 <template>
+
+    <p>{{inventory_list}}</p>
     <v-container fluid class="text-center">
         <v-row>
             <v-col>
@@ -43,11 +45,20 @@
                                 <td class="text-left">
                                     ${{ productStore.productList[c.id].price * c.quantity }}
                                 </td>
-                                <td>
-                                    <v-text-field type="number" label="Update" min="0" variant="outlined"
-                                    append-outer-icon="add" v-model="updated" @click:append-outer="increment"
-                                    prepend-icon="remove" @click:prepend="decrement" class="Quantity"></v-text-field>
-                                </td>
+
+                                <label v-for="item in inventory_list">
+                                    <label v-if="(c.id === item.id)">
+
+                                            <td>
+                                                    <v-text-field type="number" label="Update" min="0" :max="(item.quantity + 1)" variant="outlined"
+                                                    append-outer-icon="add" v-model="updated" @click:append-outer="increment"
+                                                    prepend-icon="remove" @click:prepend="decrement" class="Quantity"></v-text-field>
+                                             </td>
+
+                                    </label>
+
+                                </label>
+                                
                                 <td>
                                     <v-btn variant="outlined" @click="cartStore.updateCart(
                                         {id: c.id, quantity: Number(updated)}
@@ -110,7 +121,7 @@
 <script lang="ts">
 import { useProductStore } from '@/stores/productStore';
 import { useCartStore } from '@/stores/cartStore';
-
+import authenticationServie from '@/services/authenticationService';
 export default{
     setup(){
         const productStore = useProductStore();
@@ -124,7 +135,8 @@ export default{
     data() {
         return{
             snackbar: false,
-            text: ''
+            text: '',
+            inventory_list: [],
         }
     },
     methods: {
@@ -139,6 +151,11 @@ export default{
                 location.reload()
             }, 3000)
         }
+    },
+    mounted(){
+        authenticationServie.inventory()
+            .then(response => (this.inventory_list = response.data))
+            .catch(error => console.log(error))
     }
 }
 
