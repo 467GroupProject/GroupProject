@@ -3,7 +3,6 @@
         <v-text-field variant="outlined" class="Search"
             v-model="search" label="Search"
             ></v-text-field>
-        <v-data-table>
         <v-row>
             <v-col v-for="(p, i) in searchProduct"
             :key="i" cols="4">
@@ -26,7 +25,7 @@
                     <v-btn variant="outlined" @click="cartStore.addToCart(
                         {id: i, quantity: Number(added)}
                     ); snackbar= true; addedToCart(Number(added), productStore.productList[i].description)
-                    ; refresh()">
+                    ; added=0">
                         <font-awesome-icon icon="fa-sold fa-cart-plus" />
                         &nbsp;Add to Cart</v-btn>
                     </span>    
@@ -34,8 +33,7 @@
                 </v-card>
             </v-col>
         </v-row>
-        </v-data-table>
-        <v-snackbar v-model="snackbar" :multi-line="multiline" color="green">
+        <v-snackbar v-model="snackbar" :multi-line="multiline" color="green" :timeout="1000">
             {{ text }}
         </v-snackbar>
     </v-container>
@@ -73,11 +71,6 @@ export default{
         },
         addedToCart(q: Number, item: any){
             this.text = `${q} ${item} Added to Cart`
-        },
-        refresh(){
-            setTimeout(function() {
-                location.reload()
-            }, 3000)
         }
     },
     computed: {
