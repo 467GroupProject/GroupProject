@@ -11,4 +11,5 @@ Jared Wilkinson
 There are various README files in both the client and server folders on instructions of how  
 to set up different parts to ensure the project will run and work correctly.
 
-[Screencast_12_07_2022_09:03:50_AM.webm](https://user-images.githubusercontent.com/61669838/206215361-a781e98a-f9e0-4aac-8847-112f32f0ad1b.webm)
+
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/61669838/207376479-0ea5187c-0534-437c-98c6-7223ac9f971e.gif)
